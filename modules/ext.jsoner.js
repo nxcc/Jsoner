@@ -1,10 +1,10 @@
 ( function () {
 
 	/**
-	 * @class mw.boilerPlate
+	 * @class mw.jsoner
 	 * @singleton
 	 */
-	mw.boilerPlate = {
+	mw.jsoner = {
 	};
 
 }() );

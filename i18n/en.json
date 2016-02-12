@@ -1,10 +1,12 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Jonas Gröger <jonas.groeger@noris.de>"
+		]
 	},
-	"boilerplate-desc": "This is an example extension",
-	"boilerplate-i18n-welcome": "Welcome to the localization file of the BoilerPlate extension.",
-	"boilerplate-helloworld": "Hello world!",
-	"boilerplate-helloworld-intro": "Welcome to the \"Hello world\" special page of the BoilerPlate extension.",
+	"jsoner-desc": "This is an example extension",
+	"jsoner-i18n-welcome": "Welcome to the localization file of the JSONer extension.",
+	"jsoner-helloworld": "Hello world!",
+	"jsoner-helloworld-intro": "Welcome to the \"Hello world\" special page of the JSONer extension.",
 	"helloworld": "Hello world"
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * HelloWorld SpecialPage for BoilerPlate extension
+ * HelloWorld SpecialPage for JSONer extension
  *
  * @file
  * @ingroup Extensions
@@ -20,11 +20,11 @@ class SpecialHelloWorld extends SpecialPage {
 	public function execute( $sub ) {
 		$out = $this->getOutput();
 
-		$out->setPageTitle( $this->msg( 'boilerplate-helloworld' ) );
+		$out->setPageTitle( $this->msg( 'jsoner-helloworld' ) );
 
 		$out->addHelpLink( 'How to become a MediaWiki hacker' );
 
-		$out->addWikiMsg( 'boilerplate-helloworld-intro' );
+		$out->addWikiMsg( 'jsoner-helloworld-intro' );
 	}
 
 	protected function getGroupName() {

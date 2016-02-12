@@ -1,41 +1,41 @@
 {
-	"name": "BoilerPlate",
-	"version": "0.0.0",
+	"name": "JSONer",
+	"version": "0.0.1",
 	"author": [
-		"Your Name"
+		"Jonas Gröger <jonas.groeger@noris.de>"
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:BoilerPlate",
-	"descriptionmsg": "boilerplate-desc",
-	"license-name": "MIT",
+	"url": "https://gitlab.noris.net/cda-ad/JSONer",
+	"descriptionmsg": "A MediaWiki Extension to embed external JSON data into a page.",
+	"license-name": "Proprietary",
 	"type": "other",
 	"AutoloadClasses": {
-		"BoilerPlateHooks": "BoilerPlate.hooks.php",
+		"JSONerHooks": "JSONer.hooks.php",
 		"SpecialHelloWorld": "specials/SpecialHelloWorld.php"
 	},
 	"config": {
-		"BoilerPlateEnableFoo": true
+		"JSONerEnableFoo": true
 	},
 	"ExtensionMessagesFiles": {
-		"BoilerPlateAlias": "BoilerPlate.i18n.alias.php"
+		"JSONerAlias": "JSONer.i18n.alias.php"
 	},
 	"Hooks": {
 		"NameOfHook": [
-			"BoilerPlateHooks::onNameOfHook"
+			"JSONerHooks::onNameOfHook"
 		]
 	},
 	"MessagesDirs": {
-		"BoilerPlate": [
+		"JSONer": [
 			"i18n"
 		]
 	},
 	"ResourceModules": {
-		"ext.boilerPlate.foo": {
+		"ext.jsoner.foo": {
 			"scripts": [
-				"modules/ext.boilerPlate.js",
-				"modules/ext.boilerPlate.foo.js"
+				"modules/ext.jsoner.js",
+				"modules/ext.jsoner.foo.js"
 			],
 			"styles": [
-				"modules/ext.boilerPlate.foo.css"
+				"modules/ext.jsoner.foo.css"
 			],
 			"messages": [],
 			"dependencies": []
@@ -43,7 +43,7 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteExtPath": "BoilerPlate"
+		"remoteExtPath": "JSONer"
 	},
 	"SpecialPages": {
 		"HelloWorld": "SpecialHelloWorld"

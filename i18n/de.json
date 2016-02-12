@@ -1,13 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kghbln",
-			"Metalhead64"
+			"Jonas Gröger <jonas.groeger@noris.de>"
 		]
 	},
-	"boilerplate-desc": "Veranschaulicht beispielhaft eine einfache MediaWiki-Erweiterung",
-	"boilerplate-i18n-welcome": "Willkommen bei der Lokalisierungs- und Internationalisierungsdatei der Programmerweiterung BoilerPlate.",
-	"boilerplate-helloworld": "Hallo Welt!",
-	"boilerplate-helloworld-intro": "Willkommen auf der Spezialseite „Hallo Welt“ der Erweiterung „BoilerPlate“.",
+	"jsoner-desc": "Veranschaulicht beispielhaft eine einfache MediaWiki-Erweiterung",
+	"jsoner-i18n-welcome": "Willkommen bei der Lokalisierungs- und Internationalisierungsdatei der Programmerweiterung JSONer.",
+	"jsoner-helloworld": "Hallo Welt!",
+	"jsoner-helloworld-intro": "Willkommen auf der Spezialseite „Hallo Welt“ der Erweiterung „JSONer“.",
 	"helloworld": "Hallo Welt"
 }

@@ -1,6 +1,6 @@
 {
-  "name": "boilerplate",
-  "version": "0.0.0",
+  "name": "JSONer",
+  "version": "0.0.1",
   "scripts": {
     "test": "grunt test"
   },

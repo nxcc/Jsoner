@@ -1,13 +1,15 @@
-This is a blank extension template. It doesn't really do anything on its own.
-It is intended to provide a boiler template for an actual MediaWiki extension.
+# JSONer
 
-If you are checking this out from Git and intend to use it, you may use the
-following commands to make a clean directory of just this template without the
-Git meta-data and other examples.
+This is a MediaWiki extension that allows one to embed external JSON data (i.e. from
+a REST API) into an article.
 
-	cd extensions
-	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/BoilerPlate.git
-	cp -R BoilerPlate ./MyExtension
+## Installation
+**Currently, this extension is non-functional** and under heavy development. You can still
+clone is using
+
+    git clone git@gitlab.noris.net:cda-ad/JSONer.git && cd JSONer
+
+## Development
 
 This automates the recommended code checkers for PHP and JavaScript code in Wikimedia projects
 (see https://www.mediawiki.org/wiki/Continuous_integration/Entry_points).

@@ -1,10 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Lloffiwr",
-			"Chase me ladies, I'm the Cavalry"
+			"Jonas Gröger <jonas.groeger@noris.de>"
 		]
 	},
-	"boilerplate-desc": "This is an example extension",
-	"boilerplate-i18n-welcome": "Welcome to the localisation file of the BoilerPlate extension."
+	"jsoner-desc": "This is an example extension",
+	"jsoner-i18n-welcome": "Welcome to the localisation file of the JSONer extension."
 }
