@@ -2,26 +2,26 @@
 	"name": "JSONer",
 	"version": "0.0.1",
 	"author": [
-		"Jonas Gröger <jonas.groeger@noris.de>"
+      "Jonas Gröger ([mailto:jonas.groeger@noris.de Mail], [https://jonasgroeger.de Web])"
 	],
 	"url": "https://gitlab.noris.net/cda-ad/JSONer",
-	"descriptionmsg": "A MediaWiki Extension to embed external JSON data into a page.",
-	"license-name": "Proprietary",
-	"type": "other",
-	"AutoloadClasses": {
-		"JSONerHooks": "JSONer.hooks.php",
-		"SpecialHelloWorld": "specials/SpecialHelloWorld.php"
-	},
+	"descriptionmsg": "jsoner-desc",
+	"type": "parserhook",
 	"config": {
-		"JSONerEnableFoo": true
+		"JSONerBaseUrl": "https://example.com/rest",
+		"JSONerUser": "invalid.user",
+		"JSONerPass": "invalid.pass"
 	},
-	"ExtensionMessagesFiles": {
-		"JSONerAlias": "JSONer.i18n.alias.php"
+	"AutoloadClasses": {
+		"JSONerHooks": "JSONer.hooks.php"
 	},
 	"Hooks": {
-		"NameOfHook": [
-			"JSONerHooks::onNameOfHook"
+		"ParserFirstCallInit": [
+			"JSONerHooks::onParserSetup"
 		]
+	},
+	"ExtensionMessagesFiles": {
+		"JSONerMagic": "JSONer.i18n.magic.php"
 	},
 	"MessagesDirs": {
 		"JSONer": [
@@ -42,11 +42,7 @@
 		}
 	},
 	"ResourceFileModulePaths": {
-		"localBasePath": "",
 		"remoteExtPath": "JSONer"
-	},
-	"SpecialPages": {
-		"HelloWorld": "SpecialHelloWorld"
 	},
 	"manifest_version": 1
 }
