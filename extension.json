@@ -8,9 +8,14 @@
 	"descriptionmsg": "jsoner-desc",
 	"type": "parserhook",
 	"config": {
-		"JSONerBaseUrl": "https://example.com/rest",
-		"JSONerUser": "invalid.user",
-		"JSONerPass": "invalid.pass"
+		"_prefix": "jsoner",
+		"BaseUrl": "https://example.com/rest",
+		"User": "invalid.user",
+		"Pass": "invalid.pass",
+		"Filters": []
+	},
+	"ConfigRegistry": {
+		"jsoner": "JSONerHooks::buildConfig"
 	},
 	"AutoloadClasses": {
 		"JSONerHooks": "JSONer.hooks.php",
