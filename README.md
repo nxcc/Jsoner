@@ -6,14 +6,15 @@ a REST API) into an article.
 ## Installation
 
 Put the extension in your `extension/` folder and add this in your `LocalSettings.php`:
-    
-    wfLoadExtension('JSONer')
-    $wgJSONerBaseUrl = 'https://example.com/rest/v2/'
+
+    wfLoadExtension( 'JSONer' );
+    $jsonerBaseUrl = 'https://example.com/api/';
+    $jsonerUser = '<your_user>';
+    $jsonerPass = '<your_pass>';
 
 This will enable the JSONer extension and add some functions to the MediaWiki parser:
 
-* `#jsoner`
-* `#alsotodo`
+* `#jsoner` with parameters `url` and optionally filters
 
 ## Usage
 
@@ -29,8 +30,38 @@ will return
     }
     
 and we want to filter this list to only return `name` and `status`. This can be done as follows:
- 
-**TODO**
+
+## Available Filters
+
+### SelectSubtreeFilter
+
+Given the following data
+    {
+        "_id": 42,
+        "_type": "Person",
+        "location": {
+            "city": "SomeCity",
+            "street": "SomeStreet",
+        },
+        "age": 26,
+        "status": "developer"
+    }
+    
+And a filter like this
+
+    {{ #jsoner:url=… | subtree=location }}
+    
+Will return this
+
+    "location": {
+        "city": "SomeCity",
+        "street": "SomeStreet",
+    }
+
+### SelectKeysFilter
+
+TODO: Document
+
 
 ## Development
 
@@ -41,7 +72,8 @@ clone is using
 
 This automates the recommended code checkers for PHP and JavaScript code in Wikimedia projects
 (see https://www.mediawiki.org/wiki/Continuous_integration/Entry_points).
-To take advantage of this automation.
+To take advantage of this automation:
+
   # install nodejs, npm, and PHP composer
   # change to the extension's directory
   # npm install

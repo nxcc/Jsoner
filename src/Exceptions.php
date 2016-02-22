@@ -2,7 +2,6 @@
 
 namespace jsoner;
 
-
 class CurlException extends \RuntimeException
 {
 }

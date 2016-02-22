@@ -2,8 +2,7 @@
 
 namespace jsoner\transformer;
 
-
 interface Transformer
 {
-    public static function transform($json);
+	public static function transform( $json );
 }

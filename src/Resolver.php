@@ -13,18 +13,23 @@ class Resolver
      */
     public function __construct($config)
     {
+
         $this->config = $config;
     }
 
     public function resolve($url)
     {
         $ch = curl_init();
-        $user = $this->config->get("User");
-        $pass = $this->config->get("Pass");
+        try {
+            $user = $this->config->get("User");
+            $pass = $this->config->get("Pass");
+            curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
+        } catch (\ConfigException $ex) {
+            wfDebugLog('JSONer', 'Either $jsonerUser or $jsonerPass were not set. Trying unauthenticated.');
+        }
 
         curl_setopt_array($ch, [
             CURLOPT_URL => $url,
-            CURLOPT_USERPWD => "$user:$pass",
             CURLOPT_HTTPHEADER => ["Accept: application/json",],
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 30,
@@ -37,7 +42,7 @@ class Resolver
         curl_close($ch);
 
         if ($response === false) {
-            throw new \CurlException($error_message, $error_code);
+            throw new CurlException($error_message, $error_code);
         }
 
         return $response;
