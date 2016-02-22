@@ -10,9 +10,9 @@
 $magicWords = array();
 
 $magicWords['en'] = array(
-    'what' => array( 0, 'what' ),
+    'jsoner' => array( 0, 'jsoner' ),
 );
 
 $magicWords['de'] = array(
-    'what' => array( 0, 'what' ),
+    'jsoner' => array( 0, 'jsoner' ),
 );
