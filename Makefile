@@ -8,7 +8,7 @@ test:
 	composer test
 
 fix:
-	phpcbf
+	-phpcbf
 
 clean:
 	rm -rf vendor node_modules
