@@ -29,6 +29,7 @@ class JSONer
 				"User" => $mwConfig->get( "User" ),
 				"Pass" => $mwConfig->get( "Pass" ),
 				"ElementOrder" => ["id"], // TODO: Make configurable in $options? or $mwConfig?
+				"SubSelectKeysTryOrder" => ["_title", 'id'], // TODO: Also make configurable?
 		] );
 		$this->options = $options;
 	}

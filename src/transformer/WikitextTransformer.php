@@ -58,7 +58,7 @@ class WikitextTransformer extends AbstractTransformer
 
 			// If an item is nested, we try to create a meaningful representation
 			// by trying a list of keys. If this fails, we
-			$subSelectKeys = ["_title", "id"];
+			$subSelectKeys = $this->config->getItem( 'SubSelectKeysTryOrder' );
 			if ( is_array( $value ) ) {
 				foreach ( $subSelectKeys as $subSelectKey ) {
 					if ( array_key_exists( $subSelectKey, $value ) ) {
