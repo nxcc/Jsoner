@@ -79,7 +79,7 @@ To install it into your development MediaWiki, just symlink it to your `extensio
     cd /path/to/your/extensions/folder
     ln -s /path/to/the/JSONer/extension JSONer
     
-Then, install it [like described above](#Installation).
+Then, install it [like described above](#installation).
 
 To test, you can run
 
