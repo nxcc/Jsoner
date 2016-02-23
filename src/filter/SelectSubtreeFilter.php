@@ -3,8 +3,9 @@
 namespace jsoner\filter;
 
 /**
+ *
  * Does not modify the array if there is no such subtree.
- * Class SelectSubtreeFilter
+ *
  */
 class SelectSubtreeFilter implements Filter
 {

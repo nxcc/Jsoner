@@ -27,7 +27,10 @@ class JSONerHooks
 		return new GlobalVarConfig( self::$configPrefix );
 	}
 
-	public static function run( &$parser ) {
+	public static function run( \Parser &$parser ) {
+
+		// Since this extension calls an external
+		$parser->disableCache();
 
 		$config = self::getConfig();
 
@@ -70,8 +73,7 @@ class JSONerHooks
 	 */
 	private static function extractOptions( array $options ) {
 
-		$results = array();
-
+		$results = [];
 		foreach ( $options as $option ) {
 			$pair = explode( '=', $option, 2 );
 			if ( count( $pair ) == 2 ) {
@@ -83,7 +85,6 @@ class JSONerHooks
 		// Now you've got an array that looks like this:
 		// [foo] => bar
 		// [apple] => orange
-
 		return $results;
 	}
 }

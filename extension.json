@@ -23,6 +23,8 @@
 		"jsoner\\JSONer": "src/JSONer.php",
 		"jsoner\\Parser": "src/Parser.php",
 		"jsoner\\Resolver": "src/Resolver.php",
+		"jsoner\\FilterRegistry": "src/FilterRegistry.php",
+		"jsoner\\TransformerRegistry": "src/TransformerRegistry.php",
 
 		"jsoner\\filter\\Filter": "src/filter/Filter.php",
 		"jsoner\\filter\\CensorKeysFilter": "src/filter/CensorKeysFilter.php",
@@ -31,7 +33,9 @@
 		"jsoner\\filter\\SelectKeysFilter": "src/filter/SelectKeysFilter.php",
 
 		"jsoner\\transformer\\Transformer": "src/transformer/Transformer.php",
-		"jsoner\\transformer\\HTMLTransformer": "src/transformer/HTMLTransformer.php"
+		"jsoner\\transformer\\AbstractTransformer": "src/transformer/Transformer.php",
+		"jsoner\\transformer\\JsonDumpTransformer": "src/transformer/JsonDumpTransformer.php",
+		"jsoner\\transformer\\WikitextTransformer": "src/transformer/WikitextTransformer.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": [
