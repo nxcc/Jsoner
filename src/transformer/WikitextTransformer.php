@@ -23,17 +23,17 @@ class WikitextTransformer extends AbstractTransformer
 		$wikitext .= '  ! colspan="' . $colspan . '" | ' . "$queryUrl @ $time\n";
 
 		// Header
-		$wikitext .= self::buildWikitextHeader( $json[0] );
+		$wikitext .= $this->buildWikitextHeader( $json[0] );
 
 		foreach ( $json as $item ) {
-			$wikitext .= self::buildWikitextRow( $item );
+			$wikitext .= $this->buildWikitextRow( $item );
 		}
 
 		$wikitext .= "|}";
 		return $wikitext;
 	}
 
-	private static function buildWikitextHeader( $item ) {
+	private function buildWikitextHeader( $item ) {
 		$header = "|-\n";
 		foreach ( $item as $key => $value ) {
 			$header .= '  ! scope="col" | ' . $key . "\n";
@@ -41,7 +41,7 @@ class WikitextTransformer extends AbstractTransformer
 		return $header;
 	}
 
-	private static function buildWikitextRow( $item ) {
+	private function buildWikitextRow( $item ) {
 		$row = "|-\n";
 
 		// First element in row
