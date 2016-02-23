@@ -9,7 +9,8 @@ class WikitextTransformer extends AbstractTransformer
 	}
 
 	public function transformOne( $json ) {
-		return "'''" . __METHOD__ . "'''";
+		// FIXME: Actually implement it.
+		return $this->transformMultiple($json);
 	}
 
 	public function transformMultiple( $json ) {
