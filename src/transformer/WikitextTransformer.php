@@ -4,40 +4,6 @@ namespace jsoner\transformer;
 
 class WikitextTransformer extends AbstractTransformer
 {
-	private $url;
-
-	/*
-	$TOKEN_TABLE_START class="wikitable"
-	  $TOKEN_TABLE_START_TITLE colspan="2" $TOKEN_SEPARATOR /animals
-	$TOKEN_ROW_SEPARATOR
-	  $TOKEN_TABLE_HEADER_START $TOKEN_SEPARATOR ID
-	  $TOKEN_TABLE_HEADER_START $TOKEN_SEPARATOR TEXT
-	$TOKEN_ROW_SEPARATOR
-	  $TOKEN_ROW_START_SCOPED $TOKEN_SEPARATOR 303
-	  $TOKEN_ROW_START Cow
-	$TOKEN_ROW_SEPARATOR
-	  $TOKEN_ROW_START_SCOPED $TOKEN_SEPARATOR 270
-	  $TOKEN_ROW_START Rat
-	$TOKEN_ROW_SEPARATOR
-	  $TOKEN_ROW_START_SCOPED $TOKEN_SEPARATOR 298
-	  $TOKEN_ROW_START Dog@
-	$TOKEN_TABLE_END
-	*/
-	private static $TOKEN_TABLE_START = "{| ";
-	private static $TOKEN_TABLE_END = "|}";
-	private static $TOKEN_TABLE_START_TITLE = "  ! ";
-	private static $TOKEN_TABLE_HEADER_START = "  ! scope=\"col\" | ";
-
-	private static $TOKEN_ROW_START_SCOPED = "  ! scope=\"row\" | ";
-	private static $TOKEN_ROW_START = "  |";
-	private static $TOKEN_ROW_SEPARATOR = "|-";
-
-	private static $TOKEN_NEWLINE = "\n";
-
-	public function __construct( $url = null ) {
-		$this->url = $url;
-	}
-
 	public function transformZero() {
 		return "'''" . __METHOD__ . "'''";
 	}
@@ -48,13 +14,13 @@ class WikitextTransformer extends AbstractTransformer
 
 	public function transformMultiple( $json ) {
 		// Table
-		$wikitext = self::$TOKEN_TABLE_START . "class=\"wikitable\"" . self::$TOKEN_NEWLINE;
+		$wikitext = '{| class="wikitable"' . "\n";
 
 		// Table title
 		$colspan = count( $json[0] );
 		$time = date( 'r' );
-		$wikitext .= self::$TOKEN_TABLE_START_TITLE . "colspan=\"$colspan\" | "
-				. $this->url . " @ $time" . self::$TOKEN_NEWLINE;
+		$queryUrl = $this->config->getItem( "QueryUrl" );
+		$wikitext .= '  ! colspan="' . $colspan . '" | ' . "$queryUrl @ $time\n";
 
 		// Header
 		$wikitext .= self::buildWikitextHeader( $json[0] );
@@ -63,27 +29,26 @@ class WikitextTransformer extends AbstractTransformer
 			$wikitext .= self::buildWikitextRow( $item );
 		}
 
-		$wikitext .= self::$TOKEN_TABLE_END;
+		$wikitext .= "|}";
 		return $wikitext;
 	}
 
 	private static function buildWikitextHeader( $item ) {
-		$header = self::$TOKEN_ROW_SEPARATOR . self::$TOKEN_NEWLINE;
+		$header = "|-\n";
 		foreach ( $item as $key => $value ) {
-			$header .= self::$TOKEN_TABLE_HEADER_START . $key . self::$TOKEN_NEWLINE;
+			$header .= '  ! scope="col" | ' . $key . "\n";
 		}
 		return $header;
 	}
 
 	private static function buildWikitextRow( $item ) {
-		$firstElement = 'id';
+		$row = "|-\n";
 
-		// The first element of every row
-		$firstValue = $item[$firstElement];
-		unset( $item[$firstElement] );
+		// First element in row
+		$row .= '  ! scope="row" | ' . reset( $item ) . "\n";
+		unset( $item[key( $item )] );
 
-		$row = self::$TOKEN_ROW_SEPARATOR . self::$TOKEN_NEWLINE;
-		$row .= self::$TOKEN_ROW_START_SCOPED . $firstValue . self::$TOKEN_NEWLINE;
+		// Rest of the elements in a row
 		foreach ( $item as $key => $value ) {
 			$valueRepresentation = $value;
 
@@ -108,7 +73,7 @@ class WikitextTransformer extends AbstractTransformer
 				}
 			}
 
-			$row .= self::$TOKEN_ROW_START . $valueRepresentation . self::$TOKEN_NEWLINE;
+			$row .= "  | $valueRepresentation\n";
 		}
 		return $row;
 	}

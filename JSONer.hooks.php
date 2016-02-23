@@ -23,12 +23,10 @@ class JSONerHooks
 	 * @return GlobalVarConfig The configuration for the JSONer extension
 	 */
 	public static function buildConfig() {
-
 		return new GlobalVarConfig( self::$configPrefix );
 	}
 
 	public static function run( \Parser &$parser ) {
-
 		// Since this extension calls an external
 		$parser->disableCache();
 
@@ -52,14 +50,12 @@ class JSONerHooks
 	}
 
 	private static function getConfig() {
-
 		$config = ConfigFactory::getDefaultInstance()->makeConfig( self::$configPrefix );
 		MWDebug::log( "JSONer: Loaded configuration -> " . print_r( $config, true ) );
 		return $config;
 	}
 
 	private static function curlIsInstalled() {
-
 		return function_exists( 'curl_version' );
 	}
 
