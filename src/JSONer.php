@@ -72,7 +72,7 @@ class JSONer
 			return $transformer->transform( $json );
 
 		} catch ( CurlException $ce ) { // TODO: NoSuchFilterException, NoSuchTransformerException
-			return $ce->getMessage();
+			return '<span style="color:#FFFFFF; background:#8B0000">' . $ce->getMessage() . '</span>';
 		} finally {
 			// Nothing
 		}

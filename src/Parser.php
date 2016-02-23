@@ -22,6 +22,11 @@ class Parser
 			throw new CurlException( $error_message, $error_code );
 		}
 
+		if (array_key_exists('_error', $decoded_json)) {
+			throw new CurlException( $decoded_json['_error']['_message'], 42);
+		}
+
+
 		return $decoded_json;
 	}
 }
