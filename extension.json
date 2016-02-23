@@ -23,6 +23,7 @@
 		"jsoner\\JSONer": "src/JSONer.php",
 		"jsoner\\Parser": "src/Parser.php",
 		"jsoner\\Resolver": "src/Resolver.php",
+		"jsoner\\Config": "src/Config.php",
 		"jsoner\\FilterRegistry": "src/FilterRegistry.php",
 		"jsoner\\TransformerRegistry": "src/TransformerRegistry.php",
 
