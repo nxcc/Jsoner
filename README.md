@@ -65,18 +65,33 @@ TODO: Document
 
 ## Development
 
-**Currently, this extension is non-functional** and under heavy development. You can still
-clone is using
+This extension is under development. Anything may change.
+
+You can clone is using
 
     git clone git@gitlab.noris.net:cda-ad/JSONer.git && cd JSONer
+    # Install NodeJS, npm and PHP composer
+    make devenv
+    
+To install it into your development MediaWiki, just symlink it to your `extensions` folder
 
-This automates the recommended code checkers for PHP and JavaScript code in Wikimedia projects
-(see https://www.mediawiki.org/wiki/Continuous_integration/Entry_points).
-To take advantage of this automation:
+    # Assuming you are in JSONer folder
+    cd /path/to/your/extensions/folder
+    ln -s /path/to/the/JSONer/extension JSONer
+    
+Then, install it [like described above](#Installation).
 
-  # install nodejs, npm, and PHP composer
-  # change to the extension's directory
-  # npm install
-  # composer install
+To test, you can run
 
-Once set up, running `npm test` and `composer test` will run automated code checks.
+    make test
+    
+To fix warnings etc. from `make test`, you can run:
+
+    make fix
+    
+To clean, you can run
+    
+    make clean
+    
+## License
+None yet.
