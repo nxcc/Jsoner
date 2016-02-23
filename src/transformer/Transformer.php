@@ -24,6 +24,16 @@ interface Transformer
  */
 abstract class AbstractTransformer implements Transformer
 {
+	/**
+	 * @var \jsoner\Config
+	 */
+	protected $config;
+
+	public function __construct( $config ) {
+
+		$this->config = $config;
+	}
+
 	public function transform( $json ) {
 		$numberOfElements = count( $json );
 
