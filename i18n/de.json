@@ -4,9 +4,6 @@
 			"Jonas Gröger <jonas.groeger@noris.de>"
 		]
 	},
-	"jsoner-desc": "Veranschaulicht beispielhaft eine einfache MediaWiki-Erweiterung",
-	"jsoner-i18n-welcome": "Willkommen bei der Lokalisierungs- und Internationalisierungsdatei der Programmerweiterung JSONer.",
-	"jsoner-helloworld": "Hallo Welt!",
-	"jsoner-helloworld-intro": "Willkommen auf der Spezialseite „Hallo Welt“ der Erweiterung „JSONer“.",
-	"helloworld": "Hallo Welt"
+	"jsoner-desc": "Eine MediaWiki-Erweiterung um JSON-Daten von URLs abzurufen, zu filtern und darzustellen.",
+	"jsoner-curl-not-installed": "Die PHP-Erweiterung cURL ist nicht verfügbar."
 }

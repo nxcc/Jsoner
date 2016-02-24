@@ -1,6 +1,7 @@
 <?php
 
-namespace jsoner;
+namespace jsoner\exceptions;
+
 
 class CurlException extends \RuntimeException
 {

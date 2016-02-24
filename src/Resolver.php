@@ -2,6 +2,8 @@
 
 namespace jsoner;
 
+use jsoner\exceptions\CurlException;
+
 class Resolver
 {
 	private $config;
@@ -16,20 +18,23 @@ class Resolver
 
 	public function resolve( $url ) {
 		$ch = curl_init();
-		try {
-			$user = $this->config->getItem( "User" );
-			$pass = $this->config->getItem( "Pass" );
+
+		// Authenticate if User and Pass are provided
+		$user = $this->config->getItem( "User");
+		$pass = $this->config->getItem( "Pass" );
+		if ($user != null && $pass != null) {
 			curl_setopt( $ch, CURLOPT_USERPWD, "$user:$pass" );
-		} catch ( \ConfigException $ex ) {
-			wfDebugLog( 'JSONer', 'Either $jsonerUser or $jsonerPass were not set.'
-				. 'Trying unauthenticated.' );
 		}
+
+		$url = str_replace(' ', '%20', $url);
 
 		curl_setopt_array( $ch, [
 			CURLOPT_URL => $url,
 			CURLOPT_HTTPHEADER => ["Accept: application/json",],
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 30,
+			CURLOPT_FAILONERROR => true,
+			CURLOPT_QUOTE
 		] );
 
 		$response = curl_exec( $ch );

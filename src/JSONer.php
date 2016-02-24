@@ -2,24 +2,27 @@
 
 namespace jsoner;
 
+use jsoner\exceptions\CurlException;
+use jsoner\exceptions\ParserException;
 use jsoner\filter\Filter;
 use jsoner\transformer\WikitextTransformer;
+use Tracy\Debugger;
 
 class JSONer
 {
 	/**
-	 * @var \jsoner\Config The configuration for JSONer
+	 * @var \jsoner\Config The configuration for JSONer (global)
 	 */
 	private $config;
 
 	/**
-	 * @var array User provided options in the #jsoner call
+	 * @var array User provided options in the #jsoner call (per request)
 	 */
 	private $options;
 
 	/**
 	 * JSONer constructor.
-	 * @param \Config $mwConfig Configuration for JSOner in a MediaWiki datastructure.
+	 * @param \Config $mwConfig Configuration for JSONer in a MediaWiki data structure.
 	 * @param $options
 	 */
 	public function __construct( $mwConfig, $options ) {
@@ -28,8 +31,10 @@ class JSONer
 				"BaseUrl" => $mwConfig->get( "BaseUrl" ),
 				"User" => $mwConfig->get( "User" ),
 				"Pass" => $mwConfig->get( "Pass" ),
+				"Parser-ErrorKey" => '_error',
 				"ElementOrder" => ["id"], // TODO: Make configurable in $options? or $mwConfig?
 				"SubSelectKeysTryOrder" => ["_title", 'id'], // TODO: Also make configurable?
+				"Debug" => $mwConfig->get("Debug"),
 		] );
 		$this->options = $options;
 	}
@@ -37,11 +42,22 @@ class JSONer
 	/**
 	 * Here be the plumbing.
 	 * @return string
-	 * @throws \ConfigException
 	 */
 	public function run() {
 		$queryUrl = self::buildUrl( $this->config['BaseUrl'], $this->options['url'] );
 		$this->config->setItem( "QueryUrl", $queryUrl );
+
+		if ($this->config->hasItem("Debug"))
+		{
+			if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
+				require_once __DIR__ . '/../vendor/autoload.php';
+				$logDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'jsoner-tracy-log-' . uniqid();
+				mkdir($logDir, 0777, true);
+				Debugger::enable(Debugger::DETECT, $logDir);
+
+				Debugger::$maxLen = 0; // No limit
+			}
+		}
 
 		try {
 			// Resolve
@@ -49,7 +65,8 @@ class JSONer
 			$json = $resolver->resolve( $queryUrl );
 
 			// Parse
-			$json = Parser::parse( $json );
+			$parser = new Parser($this->config);
+			$json = $parser->parse( $json );
 
 			// TODO: Implement FilterRegistry like this:
 			// $filterRegistry = new FilterRegistry($this->options);
@@ -68,21 +85,35 @@ class JSONer
 			$json = self::orderJson( $json, $this->config );
 
 			// Transform
-			$transformer = new WikitextTransformer( $this->config );
+			$transformer = new WikitextTransformer( $this->config, $this->options);
 			return $transformer->transform( $json );
 
-		} catch ( CurlException $ce ) { // TODO: NoSuchFilterException, NoSuchTransformerException
-			return '<span style="color:#FFFFFF; background:#8B0000">' . $ce->getMessage() . '</span>';
+		} catch ( CurlException $ce ) {
+			return Helper::errorMessage($ce->getMessage());
+		} catch (ParserException $pe) {
+			return Helper::errorMessage($pe->getMessage());
 		} finally {
 			// Nothing
 		}
+
+		// TODO: NoSuchFilterException, NoSuchTransformerException
 	}
 
+	/**
+	 * Builds the URL that is used to resolve the JSON data.
+	 *
+	 * @param string $baseUrl A base url that is prepended to the queryUrl.
+	 * 						  null if not set in LocalSettings.php
+	 * @param string $queryUrl The URL part after the baseUrl or a full URL if baseUrl is null.
+	 * @return string A full URL
+	 */
 	private static function buildUrl( $baseUrl, $queryUrl ) {
 
+		if ($baseUrl === null) {
+			return $queryUrl;
+		}
 		$baseUrl = rtrim( $baseUrl, '/' );
-		$queryUrl = trim( $queryUrl, '/' );
-		return "$baseUrl/$queryUrl/";
+		return "$baseUrl/$queryUrl";
 	}
 
 	private static function mapUserParametersToFiltersWithParams( $options ) {

@@ -2,16 +2,17 @@
 	"name": "JSONer",
 	"version": "0.0.1",
 	"author": [
-      "Jonas Gröger ([mailto:jonas.groeger@noris.de Mail], [https://jonasgroeger.de Web])"
+      "Jonas Gröger ([mailto:jonas.groeger@noris.de Mail], [https://noris.de Web])"
 	],
 	"url": "https://gitlab.noris.net/cda-ad/JSONer",
 	"descriptionmsg": "jsoner-desc",
 	"type": "parserhook",
 	"config": {
 		"_prefix": "jsoner",
-		"BaseUrl": "https://example.com/rest",
-		"User": "invalid.user",
-		"Pass": "invalid.pass"
+		"BaseUrl": null,
+		"User": null,
+		"Pass": null,
+		"Debug": false
 	},
 	"ConfigRegistry": {
 		"jsoner": "JSONerHooks::buildConfig"
@@ -19,13 +20,15 @@
 	"AutoloadClasses": {
 		"JSONerHooks": "JSONer.hooks.php",
 
-		"jsoner\\CurlException": "src/Exceptions.php",
 		"jsoner\\JSONer": "src/JSONer.php",
-		"jsoner\\Parser": "src/Parser.php",
 		"jsoner\\Resolver": "src/Resolver.php",
+		"jsoner\\Parser": "src/Parser.php",
 		"jsoner\\Config": "src/Config.php",
 		"jsoner\\FilterRegistry": "src/FilterRegistry.php",
 		"jsoner\\TransformerRegistry": "src/TransformerRegistry.php",
+		"jsoner\\exceptions\\CurlException": "src/exceptions/Exceptions.php",
+		"jsoner\\exceptions\\ParserException": "src/exceptions/ParserException.php",
+		"jsoner\\Helper": "src/Helper.php",
 
 		"jsoner\\filter\\Filter": "src/filter/Filter.php",
 		"jsoner\\filter\\CensorKeysFilter": "src/filter/CensorKeysFilter.php",

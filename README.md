@@ -8,13 +8,31 @@ a REST API) into an article.
 Put the extension in your `extension/` folder and add this in your `LocalSettings.php`:
 
     wfLoadExtension( 'JSONer' );
+
+This will enable the JSONer extension and add the following functions to the MediaWiki parser:
+
+* `#jsoner` with parameters `url` and filters, [see below](#available-filters).
+
+## Configuration
+
+The extension has multiple settings. Please put them after the `wfLoadExtension( 'JSONer' );`. 
+
+### $jsonerBaseUrl (default = null)
+
+    # Example
     $jsonerBaseUrl = 'https://example.com/api/';
+
+This can be used to prefix all `#jsoner` calls (the `url` argument specifically) with this url
+so that you don't have to repeat yourself, if you only consume data from one domain. If omitted,
+you have to provide complete domains in `url`.
+
+### $jsonerUser / $jsonerPass (default = null)
+
+    # Example
     $jsonerUser = '<your_user>';
     $jsonerPass = '<your_pass>';
 
-This will enable the JSONer extension and add some functions to the MediaWiki parser:
-
-* `#jsoner` with parameters `url` and optionally filters
+If both are set, this is passed to cURL to authenticate. If omitted, cURL tries unauthenticated.
 
 ## Usage
 
@@ -92,6 +110,10 @@ To fix warnings etc. from `make test`, you can run:
 To clean, you can run
     
     make clean
-    
+
+### Development configuration
+You can set `$jsonerDebug` to `true` (default = false). This will enable Tracy
+([Web](https://tracy.nette.org/), [GitHub](https://github.com/nette/tracy)).
+
 ## License
 None yet.

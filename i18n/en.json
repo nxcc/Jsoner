@@ -4,9 +4,6 @@
 			"Jonas Gröger <jonas.groeger@noris.de>"
 		]
 	},
-	"jsoner-desc": "This is an example extension",
-	"jsoner-i18n-welcome": "Welcome to the localization file of the JSONer extension.",
-	"jsoner-helloworld": "Hello world!",
-	"jsoner-helloworld-intro": "Welcome to the \"Hello world\" special page of the JSONer extension.",
-	"helloworld": "Hello world"
+	"jsoner-desc": "A MediaWiki erweiterung to retrieve, filter and display JSON data from URLs.",
+	"jsoner-curl-not-installed": "The PHP extension cURL is not available."
 }

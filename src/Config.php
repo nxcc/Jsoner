@@ -10,6 +10,7 @@ use Countable;
  * Config Class
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
+ * @author Jonas Gröger <jonas.groeger@noris.de>
  */
 class Config implements ArrayAccess, Iterator, Countable
 {
@@ -78,13 +79,6 @@ class Config implements ArrayAccess, Iterator, Countable
 
 			return $this->configSettings[$item];
 
-		} elseif ( strpos( $item, '.' ) !== false ) {
-
-			$cs = $this->configSettings;
-			$val = $this->getNestedVar( $cs, $item );
-			if ( $val ) {
-				return $val;
-			}
 		}
 		return $defaultValue;
 	}
@@ -98,6 +92,11 @@ class Config implements ArrayAccess, Iterator, Countable
 	public function setItem( $key, $value ) {
 
 		$this->configSettings[$key] = $value;
+	}
+
+	public function hasItem($key)
+	{
+		return array_key_exists($key, $this->configSettings);
 	}
 
 	// --------------------------------------------------------------
@@ -182,56 +181,9 @@ class Config implements ArrayAccess, Iterator, Countable
 		return count( $this->configSettings );
 	}
 
-	// --------------------------------------------------------------
-
-	/**
-	 * Merge configuration arrays
-	 *
-	 * What I would wish that array_merge_recursive actually does...
-	 * From: http://www.php.net/manual/en/function.array-merge-recursive.php#102379
-	 *
-	 * @param  array $arr1 Array #2
-	 * @param  array $arr2 Array #1
-	 * @return array
+	/*
+	 * ArrayAccess Interface
 	 */
-	private function mergeConfigArrays( $arr1, $arr2 ) {
-
-		foreach ( $arr2 as $key => $value ) {
-			if ( array_key_exists( $key, $arr1 ) && is_array( $value ) ) {
-				$arr1[$key] = $this->mergeConfigArrays( $arr1[$key], $arr2[$key] );
-			} else {
-				$arr1[$key] = $value;
-			}
-		}
-
-		return $arr1;
-	}
-
-	// --------------------------------------------------------------
-
-	/**
-	 * Get nested variable using dot (val.subval.subsubval) syntax
-	 *
-	 * From: http://stackoverflow.com/questions/2286706/php-lookup-array-contents-with-dot-syntax
-	 *
-	 * @param  array  $context
-	 * @param  string $name
-	 * @return mixed
-	 */
-	private function getNestedVar( &$context, $name ) {
-
-		$pieces = explode( '.', $name );
-
-		foreach ( $pieces as $piece ) {
-			if ( ! is_array( $context ) || ! array_key_exists( $piece, $context ) ) {
-				// error occurred
-				return null;
-			}
-			$context = &$context[$piece];
-		}
-
-		return $context;
-	}
 
 	/**
 	 * Whether a offset exists

@@ -29,9 +29,15 @@ abstract class AbstractTransformer implements Transformer
 	 */
 	protected $config;
 
-	public function __construct( $config ) {
+	/**
+	 * @var array User provided options in the #jsoner call (per request)
+	 */
+	protected $options;
+
+	public function __construct( $config , $options ) {
 
 		$this->config = $config;
+		$this->options = $options;
 	}
 
 	public function transform( $json ) {

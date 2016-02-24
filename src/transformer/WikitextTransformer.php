@@ -2,6 +2,8 @@
 
 namespace jsoner\transformer;
 
+use Tracy\Debugger;
+
 class WikitextTransformer extends AbstractTransformer
 {
 	public function transformZero() {
@@ -17,11 +19,14 @@ class WikitextTransformer extends AbstractTransformer
 		// Table
 		$wikitext = '{| class="wikitable"' . "\n";
 
-		// Table title
-		$colspan = count( $json[0] );
-		$time = date( 'r' );
-		$queryUrl = $this->config->getItem( "QueryUrl" );
-		$wikitext .= '  ! colspan="' . $colspan . '" | ' . "$queryUrl @ $time\n";
+		// User says to show title
+		if (isset($this->options['title'])) {
+			// Table title
+			$colspan = count($json[0]);
+			$time = date('r');
+			$queryUrl = $this->config->getItem("QueryUrl");
+			$wikitext .= '  ! colspan="' . $colspan . '" | ' . "$queryUrl @ $time\n";
+		}
 
 		// Header
 		$wikitext .= $this->buildWikitextHeader( $json[0] );
@@ -31,13 +36,15 @@ class WikitextTransformer extends AbstractTransformer
 		}
 
 		$wikitext .= "|}";
+		Debugger::log("Woha!");
+		Debugger::barDump($wikitext);
 		return $wikitext;
 	}
 
 	private function buildWikitextHeader( $item ) {
 		$header = "|-\n";
 		foreach ( $item as $key => $value ) {
-			$header .= '  ! scope="col" | ' . $key . "\n";
+			$header .= '  ! ' . $key . "\n";
 		}
 		return $header;
 	}
@@ -46,7 +53,7 @@ class WikitextTransformer extends AbstractTransformer
 		$row = "|-\n";
 
 		// First element in row
-		$row .= '  ! scope="row" | ' . reset( $item ) . "\n";
+		$row .= '  | ' . reset( $item ) . "\n";
 		unset( $item[key( $item )] );
 
 		// Rest of the elements in a row

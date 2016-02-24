@@ -2,12 +2,24 @@
 
 namespace jsoner\filter;
 
+use jsoner\Config;
+
 class SelectKeysFilter implements Filter
 {
-	public static function doFilter( $array, $params ) {
+	private $config;
+
+	/**
+	 * @param Config $config
+	 */
+	public function __construct($config)
+	{
+		$this->config = $config;
+	}
+
+	public static function doFilter($array, $params ) {
 
 		$result = [];
-		$alwaysInclude = ['id'];
+		$alwaysInclude = ['id']; // TODO: Make configurable (constructor already there)
 		$select_these_keys = array_merge( $alwaysInclude, $params );
 
 		foreach ( $array as $item ) {

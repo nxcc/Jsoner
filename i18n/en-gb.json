@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Jonas Gröger <jonas.groeger@noris.de>"
-		]
-	},
-	"jsoner-desc": "This is an example extension",
-	"jsoner-i18n-welcome": "Welcome to the localisation file of the JSONer extension."
-}

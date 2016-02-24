@@ -1,5 +1,8 @@
 <?php
 
+use jsoner\Helper;
+use jsoner\JSONer;
+
 /**
  * Hooks for the JSONer extension.
  *
@@ -27,60 +30,21 @@ class JSONerHooks
 	}
 
 	public static function run( \Parser &$parser ) {
-		// Since this extension calls an external
 		$parser->disableCache();
 
 		$config = self::getConfig();
 
-		// TODO: Add i18n
-		if ( !self::curlIsInstalled() ) {
-			return "<span style='color: red;'>PHP extension cURL not installed.</span>";
+		if ( !Helper::curlIsInstalled() ) {
+			return Helper::errorMessage(wfMessage( 'jsoner-curl-not-installed' ));
 		}
 
-		$opts = array();
-		$num_args = func_num_args();
-		// Argument 0 is $parser, so begin iterating at 1
-		for ( $i = 1; $i < $num_args; $i++ ) {
-			$opts[] = func_get_arg( $i );
-		}
-		$options = self::extractOptions( $opts );
+		$options = Helper::extractOptions(array_slice(func_get_args(), 1));
 
-		$jsoner = new jsoner\JSONer( $config, $options );
+		$jsoner = new JSONer( $config, $options );
 		return $jsoner->run();
 	}
 
 	private static function getConfig() {
-		$config = ConfigFactory::getDefaultInstance()->makeConfig( self::$configPrefix );
-		MWDebug::log( "JSONer: Loaded configuration -> " . print_r( $config, true ) );
-		return $config;
-	}
-
-	private static function curlIsInstalled() {
-		return function_exists( 'curl_version' );
-	}
-
-	/**
-	 * Converts an array of values in form [0] => "name=value" into a real
-	 * associative array in form [name] => value
-	 *
-	 * @link https://www.mediawiki.org/wiki/Manual:Parser_functions/de#Named_parameters
-	 * @param array $options
-	 * @return array $results
-	 */
-	private static function extractOptions( array $options ) {
-
-		$results = [];
-		foreach ( $options as $option ) {
-			$pair = explode( '=', $option, 2 );
-			if ( count( $pair ) == 2 ) {
-				$name = trim( $pair[0] );
-				$value = trim( $pair[1] );
-				$results[$name] = $value;
-			}
-		}
-		// Now you've got an array that looks like this:
-		// [foo] => bar
-		// [apple] => orange
-		return $results;
+		return ConfigFactory::getDefaultInstance()->makeConfig( self::$configPrefix );
 	}
 }

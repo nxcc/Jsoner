@@ -5,8 +5,5 @@
 		]
 	},
 	"jsoner-desc": "{{desc|name=JSONer|url=https://gitlab.noris.net/cda-ad/JSONer}}",
-	"jsoner-i18n-welcome": "Used to greet the user when reading the i18n/??.json file.",
-	"jsoner-helloworld": "Page title of the HelloWorld special page.",
-	"jsoner-helloworld-intro": "Text displayed on the HelloWorld SpecialPage.",
-	"helloworld": "Text of the link to the HelloWorld special page on SpecialPages."
+	"jsoner-curl-not-installed": "This message will be shown when PHP cannot access its cURL extension."
 }
