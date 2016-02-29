@@ -21,7 +21,7 @@ class JsonDumpTransformer extends AbstractTransformer
 		return "<pre>" . json_encode( $json, $json_encode_options ) . "</pre>";
 	}
 
-	public function getKey()
+	public static function getKey()
 	{
 		return "t-JsonDump";
 	}

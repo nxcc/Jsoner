@@ -28,6 +28,7 @@
 		"jsoner\\TransformerRegistry": "src/TransformerRegistry.php",
 		"jsoner\\exceptions\\CurlException": "src/exceptions/Exceptions.php",
 		"jsoner\\exceptions\\HttpUriFormatException": "src/exceptions/HttpUriFormatException.php",
+		"jsoner\\exceptions\\NoSuchTransformerException": "src/exceptions/NoSuchTransformerException.php",
 		"jsoner\\exceptions\\ParserException": "src/exceptions/ParserException.php",
 		"jsoner\\Helper": "src/Helper.php",
 

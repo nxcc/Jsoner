@@ -73,7 +73,7 @@ class WikitextTableTransformer extends AbstractTransformer
 		return $row;
 	}
 
-	public function getKey()
+	public static function getKey()
 	{
 		return "t-WikitextTable";
 	}

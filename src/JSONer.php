@@ -4,9 +4,9 @@ namespace jsoner;
 
 use jsoner\exceptions\HttpUriFormatException;
 use jsoner\exceptions\CurlException;
+use jsoner\exceptions\NoSuchTransformerException;
 use jsoner\exceptions\ParserException;
 use jsoner\filter\Filter;
-use jsoner\transformer\SingleElementTransformer;
 
 class JSONer
 {
@@ -34,6 +34,9 @@ class JSONer
 				"Parser-ErrorKey" => '_error',
 				"ElementOrder" => ["id"], // TODO: Make configurable in $options? or $mwConfig?
 				"SubSelectKeysTryOrder" => ["_title", 'id'], // TODO: Also make configurable?
+				"CustomFilters" => $mwConfig->get( "CustomFilters"),
+				"CustomTransformers" => $mwConfig->get( "CustomTransformers"),
+
 		] );
 		$this->options = $options;
 	}
@@ -73,14 +76,11 @@ class JSONer
 			// Filter
 			$json = self::applyFilters( $json, $filters_with_params );
 
-			// TODO: Implement TransformerRegistry like this:
-			// $transformerRegistry = new TransformerRegistry($this->options);
-			// $transformerRegistry->registerTransformersFromFromNamespace("\\jsoner\\transformer\\");
-
 			$json = self::orderJson( $json, $this->config );
 
-			// Transform
-			$transformer = new SingleElementTransformer( $this->config, $this->options );
+			$transformerRegistry = new TransformerRegistry($this->config, $this->options);
+			$transformerRegistry->registerBuiltinTransformers();
+			$transformer = $transformerRegistry->getTransformerByKey($this->options);
 			return $transformer->transform( $json );
 
 		} catch ( CurlException $ce ) {
@@ -89,12 +89,14 @@ class JSONer
 			return Helper::errorMessage( $pe->getMessage() );
 		} catch ( HttpUriFormatException $hufe ) {
 			return Helper::errorMessage( $hufe->getMessage() );
+		} catch (NoSuchTransformerException $nste) {
+			return Helper::errorMessage( $nste->getMessage() );
 		} finally
 		{
 			// Nothing
 		}
 
-		// TODO: NoSuchFilterException, NoSuchTransformerException
+		// TODO: NoSuchFilterException
 	}
 
 	private static function mapUserParametersToFiltersWithParams( $options ) {

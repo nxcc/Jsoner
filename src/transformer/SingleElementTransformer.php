@@ -33,7 +33,7 @@ class SingleElementTransformer extends AbstractTransformer
 		// TODO: Implement transformMultiple() method.
 	}
 
-	public function getKey()
+	public static function getKey()
 	{
 		return "t-SingleElement";
 	}

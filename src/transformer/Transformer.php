@@ -11,6 +11,8 @@ namespace jsoner\transformer;
 interface Transformer
 {
 	public function transform( $json );
+
+	public static function getKey();
 }
 
 /**
@@ -60,5 +62,8 @@ abstract class AbstractTransformer implements Transformer
 
 	abstract public function transformMultiple( $json );
 
-	abstract public function getKey();
+	public static function getKey()
+	{
+		throw new \Exception('Abstract transformer does not have a filter key.');
+	}
 }
