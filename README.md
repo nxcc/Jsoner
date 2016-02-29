@@ -3,9 +3,39 @@
 This is a MediaWiki extension that allows one to embed external JSON data (i.e. from
 a REST API) into an article.
 
+## Requirements
+
+This extension requires at least `PHP >= 5.6` and the following PHP extensions:
+
+* curl
+* fileinfo
+* intl
+* mbstring
+
+Using Debian / Ubuntu you can install the extensions like this:
+
+    sudo apt-get install php5-curl php5-intl
+    sudo service apache2 restart
+
+To test if they are enabled (use your php.ini):
+
+    $ php5 --php-ini /etc/php5/apache2/php.ini -m | grep -E 'fileinfo|mbstring|intl|curl'
+    curl
+    fileinfo
+    intl
+    mbstring
+
 ## Installation
 
-Put the extension in your `extension/` folder and add this in your `LocalSettings.php`:
+Put the extension in your `extension/` folder or add this to your `composer.local.json`:
+
+    {
+        "require": {
+            "noris/jsoner": "0.0.*"
+        }
+    }
+
+Then, add this in your `LocalSettings.php`:
 
     wfLoadExtension( 'JSONer' );
 
@@ -110,10 +140,6 @@ To fix warnings etc. from `make test`, you can run:
 To clean, you can run
     
     make clean
-
-### Development configuration
-You can set `$jsonerDebug` to `true` (default = false). This will enable Tracy
-([Web](https://tracy.nette.org/), [GitHub](https://github.com/nette/tracy)).
 
 ## License
 None yet.

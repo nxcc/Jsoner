@@ -5,34 +5,34 @@ use jsoner\Parser;
 
 class SelectSubtreeFilterTest extends \PHPUnit_Framework_TestCase
 {
-    public function inOutDataProvider()
-    {
-        return [
-            ['menu', '{"menu":{"id":"file","value":"File","popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}}', '{"id":"file","value":"File","popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}'],
-            ['menuitem', '{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}', '[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]'],
-            ['small', '{"small":{"0":"a","1":"b"}}', '{"0":"a","1":"b"}'],
+	public function inOutDataProvider() {
 
-            # If the data from the parser contains a list of objects, the filter should do nothing
-            ['0', '[{"key": "value"},{"key": "value"}]', '[{"key": "value"},{"key": "value"}]'],
+		return [
+			['menu', '{"menu":{"id":"file","value":"File","popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}}', '{"id":"file","value":"File","popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}'],
+			['menuitem', '{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}', '[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]'],
+			['small', '{"small":{"0":"a","1":"b"}}', '{"0":"a","1":"b"}'],
 
-            # Empty data
-            ['', '[]', '[]'],
-            ['', '{}', '{}'],
-        ];
-    }
+			# If the data from the parser contains a list of objects, the filter should do nothing
+			['0', '[{"key": "value"},{"key": "value"}]', '[{"key": "value"},{"key": "value"}]'],
 
-    /**
-     * @dataProvider inOutDataProvider
-     */
-    public function testFilter($subtree, $unfiltered, $filtered)
-    {
-        $unfiltered_array = Parser::jsonDecode($unfiltered);
-        $filtered_array = Parser::jsonDecode($filtered);
+			# Empty data
+			['', '[]', '[]'],
+			['', '{}', '{}'],
+		];
+	}
 
-        $a = SelectSubtreeFilter::doFilter($unfiltered_array, $subtree);
+	/**
+	 * @dataProvider inOutDataProvider
+	 */
+	public function testFilter( $subtree, $unfiltered, $filtered ) {
 
-        $this->assertTrue($filtered_array === $a,
-            "SelectSubtreeFilter did not select subtree!"
-        );
-    }
+		$unfiltered_array = Parser::jsonDecode( $unfiltered );
+		$filtered_array = Parser::jsonDecode( $filtered );
+
+		$a = SelectSubtreeFilter::doFilter( $unfiltered_array, $subtree );
+
+		$this->assertTrue( $filtered_array === $a,
+			"SelectSubtreeFilter did not select subtree!"
+		);
+	}
 }

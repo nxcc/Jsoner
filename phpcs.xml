@@ -9,4 +9,9 @@
 	<rule ref="Generic.PHP.NoSilencedErrors">
 		<exclude-pattern>src/Parser.php</exclude-pattern>
 	</rule>
+
+	<rule ref="Generic.Files.LineLength.TooLong">
+		<exclude-pattern>tests/unit/ParserTest.php</exclude-pattern>
+		<exclude-pattern>tests/unit/filter/SelectSubtreeFilterTest.php</exclude-pattern>
+	</rule>
 </ruleset>

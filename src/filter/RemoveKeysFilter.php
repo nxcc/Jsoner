@@ -11,8 +11,8 @@ class RemoveKeysFilter implements Filter
 	/**
 	 * @param Config $config
 	 */
-	public function __construct($config)
-	{
+	public function __construct( $config ) {
+
 		$this->config = $config;
 	}
 

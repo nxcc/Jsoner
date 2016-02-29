@@ -17,7 +17,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	/**
 	 * @var array  Configuration Settings
 	 */
-	private $configSettings = array();
+	private $configSettings = [];
 
 	/**
 	 * @var int  Iterator Access Counter
@@ -31,7 +31,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 *
 	 * @param array  $defaults   An optional list of defaults to fall back on, set at instantiation
 	 */
-	public function __construct( $defaults = array() ) {
+	public function __construct( $defaults = [] ) {
 
 		// Set the defaults
 		$this->configSettings = $defaults;
@@ -94,9 +94,9 @@ class Config implements ArrayAccess, Iterator, Countable
 		$this->configSettings[$key] = $value;
 	}
 
-	public function hasItem($key)
-	{
-		return array_key_exists($key, $this->configSettings);
+	public function hasItem( $key ) {
+
+		return array_key_exists( $key, $this->configSettings );
 	}
 
 	// --------------------------------------------------------------
@@ -111,10 +111,10 @@ class Config implements ArrayAccess, Iterator, Countable
 
 		if ( $items ) {
 			if ( ! is_array( $items ) ) {
-				$items = array( $items );
+				$items = [ $items ];
 			}
 
-			$output = array();
+			$output = [];
 			foreach ( $items as $item ) {
 				$output[$item] = $this->getItem( $item );
 			}
@@ -128,7 +128,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	/**
 	 * @param array $items Array of items
 	 */
-	public function setItems( $items = array() ) {
+	public function setItems( $items = [] ) {
 
 		foreach ( $items as $key => $value ) {
 			$this->configSettings[$key] = $value;

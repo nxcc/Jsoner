@@ -11,8 +11,8 @@ class Parser
 	/**
 	 * @param Config $config
 	 */
-	public function __construct($config)
-	{
+	public function __construct( $config ) {
+
 		$this->config = $config;
 	}
 
@@ -25,7 +25,7 @@ class Parser
 
 		// Hide warning if there is one
 		// See: http://stackoverflow.com/a/2348181/488265
-		$decoded_json = self::jsonDecode($json_as_string);
+		$decoded_json = self::jsonDecode( $json_as_string );
 
 		// PHP sucks
 		if ( $decoded_json === null && json_last_error() !== JSON_ERROR_NONE ) {
@@ -35,15 +35,15 @@ class Parser
 		}
 
 		$errorKey = $this->config['Parser-ErrorKey'];
-		if (array_key_exists($errorKey, $decoded_json)) {
+		if ( array_key_exists( $errorKey, $decoded_json ) ) {
 			$error = $decoded_json[$errorKey];
-			if (is_array($error)) {
-				$error_message = implode(', ', $error);
+			if ( is_array( $error ) ) {
+				$error_message = implode( ', ', $error );
 			} else {
 				$error_message = $error;
 			}
 
-			throw new ParserException( $error_message, 42);
+			throw new ParserException( $error_message, 42 );
 		}
 
 		return $decoded_json;
@@ -52,13 +52,13 @@ class Parser
 	/**
 	 * @return Config
 	 */
-	public function getConfig()
-	{
+	public function getConfig() {
+
 		return $this->config;
 	}
 
-	public static function jsonDecode($json_as_string)
-	{
+	public static function jsonDecode( $json_as_string ) {
+
 		// Hide warning if there is one
 		// See: http://stackoverflow.com/a/2348181/488265
 		return @json_decode( $json_as_string, true );

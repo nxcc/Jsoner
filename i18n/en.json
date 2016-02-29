@@ -5,5 +5,5 @@
 		]
 	},
 	"jsoner-desc": "A MediaWiki erweiterung to retrieve, filter and display JSON data from URLs.",
-	"jsoner-curl-not-installed": "The PHP extension cURL is not available."
+	"jsoner-extension-not-installed": "The PHP extension '$1' is not installed."
 }

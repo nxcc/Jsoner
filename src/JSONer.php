@@ -2,11 +2,11 @@
 
 namespace jsoner;
 
+use jsoner\exceptions\HttpUriFormatException;
 use jsoner\exceptions\CurlException;
 use jsoner\exceptions\ParserException;
 use jsoner\filter\Filter;
-use jsoner\transformer\WikitextTransformer;
-use Tracy\Debugger;
+use jsoner\transformer\SingleElementTransformer;
 
 class JSONer
 {
@@ -34,9 +34,15 @@ class JSONer
 				"Parser-ErrorKey" => '_error',
 				"ElementOrder" => ["id"], // TODO: Make configurable in $options? or $mwConfig?
 				"SubSelectKeysTryOrder" => ["_title", 'id'], // TODO: Also make configurable?
-				"Debug" => $mwConfig->get("Debug"),
 		] );
 		$this->options = $options;
+	}
+
+	private static function doAutoload() {
+
+		if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
+			require_once __DIR__ . '/../vendor/autoload.php';
+		}
 	}
 
 	/**
@@ -44,33 +50,22 @@ class JSONer
 	 * @return string
 	 */
 	public function run() {
-		$queryUrl = self::buildUrl( $this->config['BaseUrl'], $this->options['url'] );
-		$this->config->setItem( "QueryUrl", $queryUrl );
 
-		if ($this->config->hasItem("Debug"))
-		{
-			if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
-				require_once __DIR__ . '/../vendor/autoload.php';
-				$logDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'jsoner-tracy-log-' . uniqid();
-				mkdir($logDir, 0777, true);
-				Debugger::enable(Debugger::DETECT, $logDir);
-
-				Debugger::$maxLen = 0; // No limit
-			}
-		}
+		// Autoload the composer dependencies, since Mediawiki doesen't do it.
+		self::doAutoload();
 
 		try {
 			// Resolve
-			$resolver = new Resolver( $this->config );
-			$json = $resolver->resolve( $queryUrl );
+			$resolver = new Resolver( $this->config, $this->options['url'] );
+			$json = $resolver->resolve();
 
 			// Parse
-			$parser = new Parser($this->config);
+			$parser = new Parser( $this->config );
 			$json = $parser->parse( $json );
 
 			// TODO: Implement FilterRegistry like this:
 			// $filterRegistry = new FilterRegistry($this->options);
-			// $filterRegistry.registerFiltersFromFromNamespace("\\jsoner\\filter\\");
+			// $filterRegistry->registerFiltersFromFromNamespace("\\jsoner\\filter\\");
 
 			// Resolve the user specified filters and filter params
 			$filters_with_params = self::mapUserParametersToFiltersWithParams( $this->options );
@@ -85,35 +80,21 @@ class JSONer
 			$json = self::orderJson( $json, $this->config );
 
 			// Transform
-			$transformer = new WikitextTransformer( $this->config, $this->options);
+			$transformer = new SingleElementTransformer( $this->config, $this->options );
 			return $transformer->transform( $json );
 
 		} catch ( CurlException $ce ) {
-			return Helper::errorMessage($ce->getMessage());
-		} catch (ParserException $pe) {
-			return Helper::errorMessage($pe->getMessage());
-		} finally {
+			return Helper::errorMessage( $ce->getMessage() );
+		} catch ( ParserException $pe ) {
+			return Helper::errorMessage( $pe->getMessage() );
+		} catch ( HttpUriFormatException $hufe ) {
+			return Helper::errorMessage( $hufe->getMessage() );
+		} finally
+		{
 			// Nothing
 		}
 
 		// TODO: NoSuchFilterException, NoSuchTransformerException
-	}
-
-	/**
-	 * Builds the URL that is used to resolve the JSON data.
-	 *
-	 * @param string $baseUrl A base url that is prepended to the queryUrl.
-	 * 						  null if not set in LocalSettings.php
-	 * @param string $queryUrl The URL part after the baseUrl or a full URL if baseUrl is null.
-	 * @return string A full URL
-	 */
-	private static function buildUrl( $baseUrl, $queryUrl ) {
-
-		if ($baseUrl === null) {
-			return $queryUrl;
-		}
-		$baseUrl = rtrim( $baseUrl, '/' );
-		return "$baseUrl/$queryUrl";
 	}
 
 	private static function mapUserParametersToFiltersWithParams( $options ) {

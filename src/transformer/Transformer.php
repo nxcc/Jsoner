@@ -43,9 +43,6 @@ abstract class AbstractTransformer implements Transformer
 	public function transform( $json ) {
 		$numberOfElements = count( $json );
 
-		\MWDebug::log( "Using Transformer → " . get_class( $this )
-				. " with $numberOfElements elements." );
-
 		if ( $numberOfElements === 1 ) {
 			return $this->transformOne( $json );
 		}
@@ -62,4 +59,6 @@ abstract class AbstractTransformer implements Transformer
 	abstract public function transformOne( $json );
 
 	abstract public function transformMultiple( $json );
+
+	abstract public function getKey();
 }

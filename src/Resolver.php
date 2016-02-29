@@ -3,33 +3,38 @@
 namespace jsoner;
 
 use jsoner\exceptions\CurlException;
+use jsoner\exceptions\HttpUriFormatException;
+use League\Uri\Schemes\Http;
 
 class Resolver
 {
 	private $config;
+	private $queryOrFullUrl;
 
 	/**
 	 * Resolver constructor.
 	 * @param \jsoner\Config $config
+	 * @param string $queryOrFullUrl The part after the ? or a full URI
 	 */
-	public function __construct( $config ) {
+	public function __construct( $config , $queryOrFullUrl ) {
 		$this->config = $config;
+		$this->queryOrFullUrl = $queryOrFullUrl;
 	}
 
-	public function resolve( $url ) {
+	public function resolve() {
+		$fullUrl = $this->buildUrl();
+
 		$ch = curl_init();
 
 		// Authenticate if User and Pass are provided
-		$user = $this->config->getItem( "User");
+		$user = $this->config->getItem( "User" );
 		$pass = $this->config->getItem( "Pass" );
-		if ($user != null && $pass != null) {
+		if ( $user != null && $pass != null ) {
 			curl_setopt( $ch, CURLOPT_USERPWD, "$user:$pass" );
 		}
 
-		$url = str_replace(' ', '%20', $url);
-
 		curl_setopt_array( $ch, [
-			CURLOPT_URL => $url,
+			CURLOPT_URL => $fullUrl,
 			CURLOPT_HTTPHEADER => ["Accept: application/json",],
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 30,
@@ -48,5 +53,27 @@ class Resolver
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Builds the URL that is used to resolve the JSON data.
+	 * @return string A full URL
+	 */
+	public function buildUrl() {
+
+		$baseUrl = $this->config['BaseUrl'];
+
+		// Looks like a HTTP URI
+		if ( strpos( trim( $this->queryOrFullUrl ), 'http' ) === 0 ) {
+			$fullUrl = $this->queryOrFullUrl;
+		} else {
+			if ( $baseUrl === null ) {
+				throw new HttpUriFormatException( 'You must set $jsonerBaseUrl.' );
+			}
+			$fullUrl = $baseUrl . $this->queryOrFullUrl;
+		}
+
+		$url = Http::createFromString( $fullUrl );
+		return $url->__toString();
 	}
 }

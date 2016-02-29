@@ -5,5 +5,5 @@
 		]
 	},
 	"jsoner-desc": "{{desc|name=JSONer|url=https://gitlab.noris.net/cda-ad/JSONer}}",
-	"jsoner-curl-not-installed": "This message will be shown when PHP cannot access its cURL extension."
+	"jsoner-extension-not-installed": "This message will be shown when PHP cannot access an extension with name $1."
 }

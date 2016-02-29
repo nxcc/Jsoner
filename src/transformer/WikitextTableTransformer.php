@@ -2,9 +2,7 @@
 
 namespace jsoner\transformer;
 
-use Tracy\Debugger;
-
-class WikitextTransformer extends AbstractTransformer
+class WikitextTableTransformer extends AbstractTransformer
 {
 	public function transformZero() {
 		return "'''" . __METHOD__ . "'''";
@@ -12,21 +10,12 @@ class WikitextTransformer extends AbstractTransformer
 
 	public function transformOne( $json ) {
 		// FIXME: Actually implement it.
-		return $this->transformMultiple($json);
+		return $this->transformMultiple( $json );
 	}
 
 	public function transformMultiple( $json ) {
 		// Table
-		$wikitext = '{| class="wikitable"' . "\n";
-
-		// User says to show title
-		if (isset($this->options['title'])) {
-			// Table title
-			$colspan = count($json[0]);
-			$time = date('r');
-			$queryUrl = $this->config->getItem("QueryUrl");
-			$wikitext .= '  ! colspan="' . $colspan . '" | ' . "$queryUrl @ $time\n";
-		}
+		$wikitext = '{| class="wikitable sortable"' . "\n";
 
 		// Header
 		$wikitext .= $this->buildWikitextHeader( $json[0] );
@@ -36,8 +25,6 @@ class WikitextTransformer extends AbstractTransformer
 		}
 
 		$wikitext .= "|}";
-		Debugger::log("Woha!");
-		Debugger::barDump($wikitext);
 		return $wikitext;
 	}
 
@@ -84,5 +71,10 @@ class WikitextTransformer extends AbstractTransformer
 			$row .= "  | $valueRepresentation\n";
 		}
 		return $row;
+	}
+
+	public function getKey()
+	{
+		return "t-WikitextTable";
 	}
 }

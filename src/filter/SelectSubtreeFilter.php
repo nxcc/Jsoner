@@ -1,6 +1,7 @@
 <?php
 
 namespace jsoner\filter;
+
 use jsoner\Config;
 
 /**
@@ -15,15 +16,15 @@ class SelectSubtreeFilter implements Filter
 	/**
 	 * @param Config $config
 	 */
-	public function __construct($config)
-	{
+	public function __construct( $config ) {
+
 		$this->config = $config;
 	}
 
 	public static function doFilter( $array, $subtree ) {
 
 		// If array contains a sequential list of objects, do nothing
-		if (array_keys($array) === range(0, count($array) - 1)) {
+		if ( array_keys( $array ) === range( 0, count( $array ) - 1 ) ) {
 			return $array;
 		}
 
