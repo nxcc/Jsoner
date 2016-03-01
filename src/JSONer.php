@@ -33,10 +33,7 @@ class JSONer
 				"User" => $mwConfig->get( "User" ),
 				"Pass" => $mwConfig->get( "Pass" ),
 				"Parser-ErrorKey" => '_error',
-				"ElementOrder" => ["id"], // TODO: Make configurable in $options? or $mwConfig?
 				"SubSelectKeysTryOrder" => ["_title", 'id'], // TODO: Also make configurable?
-				"CustomFilters" => $mwConfig->get( "CustomFilters" ),
-				"CustomTransformers" => $mwConfig->get( "CustomTransformers" ),
 
 		] );
 		$this->options = $options;
@@ -72,9 +69,6 @@ class JSONer
 
 			// Filter
 			$json = self::applyFilters( $json, $filters_with_params );
-
-			// Order the keys according to the config
-			$json = self::orderJson( $json, $this->config );
 
 			// Transform
 			$transformerKey = self::getTransformerKeyFromOptions( $this->options );
@@ -160,24 +154,6 @@ class JSONer
 	}
 
 	# ##########################################################################
-	# Ordering #################################################################
-
-	/**
-	 * @param $json
-	 * @param \jsoner\Config $config
-	 * @return array An ordered array according to the configuration
-	 */
-	private static function orderJson( $json, $config ) {
-		$ordering = $config->getItem( "ElementOrder" );
-
-		foreach ( $json as $key => $value ) {
-			$json[$key] = array_merge( array_flip( $ordering ), $value );
-		}
-
-		return $json;
-	}
-
-	# ##########################################################################
 	# Transformer ##############################################################
 
 	private static function getTransformerKeyFromOptions( $options ) {
@@ -194,7 +170,7 @@ class JSONer
 		}
 
 		$msg = "Must provide exactly one transformer ($numFoundTransformers provided)";
-		($numFoundTransformers !== 0) ? $msg .= ': ' . implode(', ', $foundTransformers): $msg .= '!';
+		( $numFoundTransformers !== 0 ) ? $msg .= ': ' . implode( ', ', $foundTransformers ): $msg .= '!';
 		throw new TransformerException( $msg );
 	}
 
