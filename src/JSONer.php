@@ -2,9 +2,11 @@
 
 namespace jsoner;
 
+use Exception;
+use jsoner\exceptions\FilterException;
 use jsoner\exceptions\HttpUriFormatException;
 use jsoner\exceptions\CurlException;
-use jsoner\exceptions\NoSuchTransformerException;
+use jsoner\exceptions\TransformerException;
 use jsoner\exceptions\ParserException;
 use jsoner\filter\Filter;
 
@@ -34,18 +36,11 @@ class JSONer
 				"Parser-ErrorKey" => '_error',
 				"ElementOrder" => ["id"], // TODO: Make configurable in $options? or $mwConfig?
 				"SubSelectKeysTryOrder" => ["_title", 'id'], // TODO: Also make configurable?
-				"CustomFilters" => $mwConfig->get( "CustomFilters"),
-				"CustomTransformers" => $mwConfig->get( "CustomTransformers"),
+				"CustomFilters" => $mwConfig->get( "CustomFilters" ),
+				"CustomTransformers" => $mwConfig->get( "CustomTransformers" ),
 
 		] );
 		$this->options = $options;
-	}
-
-	private static function doAutoload() {
-
-		if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
-			require_once __DIR__ . '/../vendor/autoload.php';
-		}
 	}
 
 	/**
@@ -57,6 +52,9 @@ class JSONer
 		// Autoload the composer dependencies, since Mediawiki doesen't do it.
 		self::doAutoload();
 
+		$transformerRegistry = new TransformerRegistry( $this->config );
+		# $filterRegistry = new FilterRegistry($this->config);
+
 		try {
 			// Resolve
 			$resolver = new Resolver( $this->config, $this->options['url'] );
@@ -66,9 +64,9 @@ class JSONer
 			$parser = new Parser( $this->config );
 			$json = $parser->parse( $json );
 
-			// TODO: Implement FilterRegistry like this:
-			// $filterRegistry = new FilterRegistry($this->options);
-			// $filterRegistry->registerFiltersFromFromNamespace("\\jsoner\\filter\\");
+			// Filter
+			# $filterKeys = self::getFiltersFromOptions( $this->options );
+			# $filters = $filterRegistry->getFiltersByKeys($filterKeys);
 
 			// Resolve the user specified filters and filter params
 			$filters_with_params = self::mapUserParametersToFiltersWithParams( $this->options );
@@ -76,12 +74,13 @@ class JSONer
 			// Filter
 			$json = self::applyFilters( $json, $filters_with_params );
 
+			// Order the keys according to the config
 			$json = self::orderJson( $json, $this->config );
 
-			$transformerRegistry = new TransformerRegistry($this->config, $this->options);
-			$transformerRegistry->registerBuiltinTransformers();
-			$transformer = $transformerRegistry->getTransformerByKey($this->options);
-			return $transformer->transform( $json );
+			// Transform
+			$transformerKey = self::getTransformerKeyFromOptions( $this->options );
+			$transformer = $transformerRegistry->getTransformerByKey( $transformerKey );
+			return $transformer->transform( $json, $this->options[$transformerKey] );
 
 		} catch ( CurlException $ce ) {
 			return Helper::errorMessage( $ce->getMessage() );
@@ -89,15 +88,19 @@ class JSONer
 			return Helper::errorMessage( $pe->getMessage() );
 		} catch ( HttpUriFormatException $hufe ) {
 			return Helper::errorMessage( $hufe->getMessage() );
-		} catch (NoSuchTransformerException $nste) {
+		} catch ( TransformerException $nste ) {
 			return Helper::errorMessage( $nste->getMessage() );
-		} finally
-		{
-			// Nothing
+		} catch ( FilterException $fe ) {
+			return Helper::errorMessage( $fe->getMessage() );
+		} catch ( Exception $catchAll ) {
+			return Helper::errorMessage( "Unexpected error: " . $catchAll->getMessage() );
 		}
-
-		// TODO: NoSuchFilterException
 	}
+
+
+	############################################################################
+	# Filter ###################################################################
+	#
 
 	private static function mapUserParametersToFiltersWithParams( $options ) {
 
@@ -162,6 +165,11 @@ class JSONer
 		return $json;
 	}
 
+
+	############################################################################
+	# Ordering #################################################################
+	#
+
 	/**
 	 * @param $json
 	 * @param \jsoner\Config $config
@@ -176,5 +184,40 @@ class JSONer
 		}
 
 		return $json;
+	}
+
+
+	############################################################################
+	# Transformer ##############################################################
+	#
+
+	private static function getTransformerKeyFromOptions( $options ) {
+
+		$foundTransformers = [];
+		foreach ( $options as $key => $val ) {
+			if ( strpos( $key, 't-' ) === 0 ) {
+				$foundTransformers[] = $key;
+			}
+		}
+
+		$numFoundTransformers = count( $foundTransformers );
+		if ( $numFoundTransformers == 1 ) {
+			return $foundTransformers[0];
+		}
+
+		throw new TransformerException( "Must provide exactly one transformer. "
+				. "$numFoundTransformers provided: " . implode( ', ', $foundTransformers ) );
+	}
+
+
+	############################################################################
+	# Misc #####################################################################
+	#
+
+	private static function doAutoload() {
+
+		if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
+			require_once __DIR__ . '/../vendor/autoload.php';
+		}
 	}
 }
