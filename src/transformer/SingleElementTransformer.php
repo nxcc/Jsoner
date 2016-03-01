@@ -2,39 +2,27 @@
 
 namespace jsoner\transformer;
 
-
 class SingleElementTransformer extends AbstractTransformer
 {
-	private $valueToSelect;
+	public function transformZero( $options ) {
 
-	public function __construct($config, $options)
-	{
-		parent::__construct($config, $options);
-		$this->valueToSelect = $this->options[$this->getKey()];
-	}
-
-	public function transformZero()
-	{
 		// TODO: Implement transformZero() method.
 	}
 
-	public function transformOne($json)
-	{
-		if (is_array($json[0])) {
-			return $json[0][$this->valueToSelect];
+	public function transformOne( $json, $options ) {
+
+		$valueToSelect = $options;
+
+		if ( is_array( $json[0] ) ) {
+			return $json[0][$valueToSelect];
 		}
 
-		return $json[$this->valueToSelect];
+		return $json[$valueToSelect];
 
 	}
 
-	public function transformMultiple($json)
-	{
+	public function transformMultiple( $json, $options ) {
+
 		// TODO: Implement transformMultiple() method.
-	}
-
-	public static function getKey()
-	{
-		return "t-SingleElement";
 	}
 }

@@ -4,25 +4,20 @@ namespace jsoner\transformer;
 
 class JsonDumpTransformer extends AbstractTransformer
 {
-	public function transformZero( ) {
+	public function transformZero( $options ) {
 
 		$emptyJsonObject = "{}";
-		$this->transformMultiple( $emptyJsonObject );
+		$this->transformMultiple( $emptyJsonObject, $options );
 	}
 
-	public function transformOne( $json ) {
+	public function transformOne( $json , $options ) {
 
-		$this->transformMultiple( $json );
+		$this->transformMultiple( $json, $options );
 	}
 
-	public function transformMultiple( $json ) {
+	public function transformMultiple( $json , $options ) {
 
 		$json_encode_options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 		return "<pre>" . json_encode( $json, $json_encode_options ) . "</pre>";
-	}
-
-	public static function getKey()
-	{
-		return "t-JsonDump";
 	}
 }

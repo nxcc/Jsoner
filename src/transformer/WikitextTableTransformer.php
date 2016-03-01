@@ -4,16 +4,16 @@ namespace jsoner\transformer;
 
 class WikitextTableTransformer extends AbstractTransformer
 {
-	public function transformZero() {
+	public function transformZero( $options ) {
 		return "'''" . __METHOD__ . "'''";
 	}
 
-	public function transformOne( $json ) {
+	public function transformOne( $json , $options ) {
 		// FIXME: Actually implement it.
-		return $this->transformMultiple( $json );
+		return $this->transformMultiple( $json, $options );
 	}
 
-	public function transformMultiple( $json ) {
+	public function transformMultiple( $json , $options ) {
 		// Table
 		$wikitext = '{| class="wikitable sortable"' . "\n";
 
@@ -71,10 +71,5 @@ class WikitextTableTransformer extends AbstractTransformer
 			$row .= "  | $valueRepresentation\n";
 		}
 		return $row;
-	}
-
-	public static function getKey()
-	{
-		return "t-WikitextTable";
 	}
 }

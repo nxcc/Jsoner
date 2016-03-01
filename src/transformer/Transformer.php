@@ -10,9 +10,7 @@ namespace jsoner\transformer;
  */
 interface Transformer
 {
-	public function transform( $json );
-
-	public static function getKey();
+	public function transform( $json, $options );
 }
 
 /**
@@ -31,39 +29,28 @@ abstract class AbstractTransformer implements Transformer
 	 */
 	protected $config;
 
-	/**
-	 * @var array User provided options in the #jsoner call (per request)
-	 */
-	protected $options;
-
-	public function __construct( $config , $options ) {
+	public function __construct( $config ) {
 
 		$this->config = $config;
-		$this->options = $options;
 	}
 
-	public function transform( $json ) {
+	public function transform( $json , $options ) {
 		$numberOfElements = count( $json );
 
 		if ( $numberOfElements === 1 ) {
-			return $this->transformOne( $json );
+			return $this->transformOne( $json, $options );
 		}
 
 		if ( $numberOfElements >= 1 ) {
-			return $this->transformMultiple( $json );
+			return $this->transformMultiple( $json, $options );
 		}
 
-		return $this->transformZero();
+		return $this->transformZero( $options );
 	}
 
-	abstract public function transformZero();
+	abstract public function transformZero( $options );
 
-	abstract public function transformOne( $json );
+	abstract public function transformOne( $json , $options );
 
-	abstract public function transformMultiple( $json );
-
-	public static function getKey()
-	{
-		throw new \Exception('Abstract transformer does not have a filter key.');
-	}
+	abstract public function transformMultiple( $json , $options );
 }
