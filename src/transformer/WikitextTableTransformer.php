@@ -2,14 +2,15 @@
 
 namespace jsoner\transformer;
 
+use jsoner\Helper;
+
 class WikitextTableTransformer extends AbstractTransformer
 {
 	public function transformZero( $options ) {
-		return "'''" . __METHOD__ . "'''";
+		return Helper::errorMessage("No elements to transform.", [__METHOD__, $options]);
 	}
 
 	public function transformOne( $json , $options ) {
-		// FIXME: Actually implement it.
 		return $this->transformMultiple( $json, $options );
 	}
 
