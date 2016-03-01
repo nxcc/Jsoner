@@ -16,10 +16,15 @@ class Helper
 		$results = [];
 		foreach ( $options as $option ) {
 			$pair = explode( '=', $option, 2 );
-			if ( count( $pair ) == 2 ) {
+			if ( count( $pair ) === 2 ) {
 				$name = trim( $pair[0] );
 				$value = trim( $pair[1] );
 				$results[$name] = $value;
+			}
+
+			if ( count( $pair ) === 1 ) {
+				$name = trim( $pair[0] );
+				$results[$name] = true;
 			}
 		}
 		// Now you've got an array that looks like this:
@@ -35,8 +40,12 @@ class Helper
 	 * @return string The message as HTML, styled in „error colors“.
 	 */
 	public static function errorMessage( $errorMessage, $debugText = '' ) {
-		$attrs = 'title="' . base64_encode( $debugText ) . "";
-		$attrs .= ' style="color:#FFFFFF; background:#8B0000; padding: 5px;';
+		if (is_array($debugText)) {
+			$debugText = implode(';=;', $debugText);
+		}
+
+		$attrs = 'title="' . base64_encode( $debugText ) . '"';
+		$attrs .= ' style="color:#FFFFFF; background:#8B0000; padding: 5px;"';
 		return "<span $attrs>" . $errorMessage . '</span>';
 	}
 
