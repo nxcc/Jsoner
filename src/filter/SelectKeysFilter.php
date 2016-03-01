@@ -19,8 +19,7 @@ class SelectKeysFilter implements Filter
 	public static function doFilter( $array, $params ) {
 
 		$result = [];
-		$alwaysInclude = ['id']; // TODO: Make configurable (constructor already there)
-		$select_these_keys = array_unique( array_merge( $alwaysInclude, $params ) );
+		$select_these_keys = $params;
 
 		foreach ( $array as $item ) {
 			$result[] = array_intersect_key( $item, array_flip( $select_these_keys ) );
