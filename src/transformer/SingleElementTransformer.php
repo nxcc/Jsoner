@@ -7,7 +7,7 @@ use jsoner\Helper;
 class SingleElementTransformer extends AbstractTransformer
 {
 	public function transformZero( $options ) {
-		// TODO: Implement transformZero() method.
+		return Helper::errorMessage("No elements to transform.", [__METHOD__, $options]);
 	}
 
 	public function transformOne( $json, $options ) {
@@ -21,6 +21,7 @@ class SingleElementTransformer extends AbstractTransformer
 	}
 
 	public function transformMultiple( $json, $options ) {
-		return Helper::errorMessage( "Got multiple entries!", $options );
+		$count = count( $json );
+		return Helper::errorMessage( "Got got multiple entries ($count)!", $options );
 	}
 }
