@@ -1,20 +1,26 @@
 # Install nodejs, npm and composer
 devenv: ## Install JS and PHP dependencies
-	npm install
-	composer install
+	@npm install
+	@composer install
 
 test: ## Run JS and PHP tests
-	npm test
-	composer test
+	@npm test
+	@composer test
 
-fix: ## Fix coding standard violations / format code
-	-phpcbf
+fix: ## Fix coding standard violations / Format the code
+	@phpcbf || true
 
 clean: ## Remove installed PHP and JS dependencies
-	rm -rf vendor node_modules
+	@rm -rf vendor node_modules
 
 update: ## Update PHP dependencies (from composer.json)
-	composer update
+	@composer update
+
+tail: ## Watch the apache error log
+	@sudo multitail --mergeall -ci green /var/log/apache2/access.log -ci red /var/log/apache2/error.log
+
+prodenv: ## Install PHP dependencies without development dependencies
+	@composer install --no-dev --optimize-autoloader
 
 # See http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
