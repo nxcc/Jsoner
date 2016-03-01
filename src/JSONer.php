@@ -85,7 +85,7 @@ class JSONer
 			return Helper::errorMessage( $nste->getMessage() );
 		} catch ( FilterException $fe ) {
 			return Helper::errorMessage( $fe->getMessage() );
-		} catch ( Exception $catchAll ) {
+		} catch ( \Exception $catchAll ) {
 			return Helper::errorMessage( "Unexpected error: " . $catchAll->getMessage() );
 		}
 	}
