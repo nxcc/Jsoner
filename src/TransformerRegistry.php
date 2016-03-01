@@ -2,61 +2,38 @@
 
 namespace jsoner;
 
-use jsoner\exceptions\NoSuchTransformerException;
-use jsoner\transformer\JsonDumpTransformer;
-use jsoner\transformer\SingleElementTransformer;
+use jsoner\exceptions\TransformerException;
 use jsoner\transformer\Transformer;
-use jsoner\transformer\WikitextTableTransformer;
 
 class TransformerRegistry
 {
 	private $config;
-	private $options;
 
-	private $transformers;
+	private $transformers = [
+		't-JsonDump' => "\\jsoner\\transformer\\JsonDumpTransformer",
+		't-SingleElement' => "\\jsoner\\transformer\\SingleElementTransformer",
+		't-WikitextTable' => "\\jsoner\\transformer\\WikitextTableTransformer",
+	];
 
-	public function __construct( $config, $options ) {
-
+	public function __construct( $config ) {
 		$this->config = $config;
-		$this->options = $options;
 	}
 
-	private static function getTransformerName($options)
-	{
-		foreach ($options as $key => $val) {
-			if (strpos($key, 't-') === 0) {
-				return $key;
-			}
-		}
-		throw new NoSuchTransformerException("No transformer was specified by the user!");
-	}
-
-	public function registerBuiltinTransformers()
-	{
-		$this->transformers[JsonDumpTransformer::getKey()]
-				= "\\jsoner\\transformer\\JsonDumpTransformer";
-
-		$this->transformers[SingleElementTransformer::getKey()]
-				= "\\jsoner\\transformer\\SingleElementTransformer";
-
-		$this->transformers[WikitextTableTransformer::getKey()]
-				= "\\jsoner\\transformer\\WikitextTableTransformer";
+	public function addTransformer( $key, $fqcn ) {
+		$this->transformers[$key] = $fqcn;
 	}
 
 	/**
-	 * @param $options
+	 * @param $key
 	 * @return Transformer
-	 * @throws NoSuchTransformerException If no transformer was found for the query.
 	 */
-	public function getTransformerByKey($options)
-	{
-		$transformerName = self::getTransformerName($options);
+	public function getTransformerByKey( $key ) {
+		$transformerClass = Helper::getArrayValueOrDefault( $this->transformers, $key );
 
-		if (isset($this->transformers[$transformerName])) {
-			$r = new \ReflectionClass($this->transformers[$transformerName]);
-			return $r->newInstance($this->config, $this->options);
+		if ( $transformerClass !== null ) {
+			return new $transformerClass( $this->config );
 		}
 
-		throw new NoSuchTransformerException("Transformer '" . $transformerName . "' not found.");
+		throw new TransformerException( "No such transformer: '$key'." );
 	}
 }
