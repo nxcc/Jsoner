@@ -2,15 +2,15 @@
 
 namespace jsoner\transformer;
 
+use jsoner\Helper;
+
 class SingleElementTransformer extends AbstractTransformer
 {
 	public function transformZero( $options ) {
-
 		// TODO: Implement transformZero() method.
 	}
 
 	public function transformOne( $json, $options ) {
-
 		$valueToSelect = $options;
 
 		if ( is_array( $json[0] ) ) {
@@ -18,11 +18,9 @@ class SingleElementTransformer extends AbstractTransformer
 		}
 
 		return $json[$valueToSelect];
-
 	}
 
 	public function transformMultiple( $json, $options ) {
-
-		// TODO: Implement transformMultiple() method.
+		return Helper::errorMessage( "Got multiple entries!", $options );
 	}
 }

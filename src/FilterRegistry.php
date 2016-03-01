@@ -39,11 +39,11 @@ class FilterRegistry
 		throw new FilterException( "No such filter: '$key'." );
 	}
 
-	public function getFiltersByKeys($filterKeys)
-	{
+	public function getFiltersByKeys( $filterKeys ) {
+
 		$filters = [];
-		foreach ($filterKeys as $filter) {
-			$filters[] = $this->getFilterByKey($filter);
+		foreach ( $filterKeys as $filter ) {
+			$filters[] = $this->getFilterByKey( $filter );
 		}
 		return $filters;
 	}

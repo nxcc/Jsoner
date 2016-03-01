@@ -28,7 +28,6 @@ class JSONer
 	 * @param $options
 	 */
 	public function __construct( $mwConfig, $options ) {
-
 		$this->config = new Config( [
 				"BaseUrl" => $mwConfig->get( "BaseUrl" ),
 				"User" => $mwConfig->get( "User" ),
@@ -97,13 +96,10 @@ class JSONer
 		}
 	}
 
-
-	############################################################################
+	# ##########################################################################
 	# Filter ###################################################################
-	#
 
 	private static function mapUserParametersToFiltersWithParams( $options ) {
-
 		$filterMap = [
 			'subtree' => ['SelectSubtreeFilter', 1], // 1 Argument
 			'select' => ['SelectKeysFilter', -1],    // Varargs
@@ -137,7 +133,6 @@ class JSONer
 	 * @return array An array
 	 */
 	private static function parseFilterParams( $filterParams, $filterArgc ) {
-
 		if ( $filterArgc === 0 ) {
 			return null;
 		}
@@ -156,7 +151,6 @@ class JSONer
 	 * @return mixed
 	 */
 	private static function applyFilters( $json, $filters ) {
-
 		foreach ( $filters as $filter_class => $parameter_array ) {
 			$function = '\\jsoner\\filter\\' . $filter_class . '::doFilter';
 
@@ -165,10 +159,8 @@ class JSONer
 		return $json;
 	}
 
-
-	############################################################################
+	# ##########################################################################
 	# Ordering #################################################################
-	#
 
 	/**
 	 * @param $json
@@ -176,7 +168,6 @@ class JSONer
 	 * @return array An ordered array according to the configuration
 	 */
 	private static function orderJson( $json, $config ) {
-
 		$ordering = $config->getItem( "ElementOrder" );
 
 		foreach ( $json as $key => $value ) {
@@ -186,13 +177,10 @@ class JSONer
 		return $json;
 	}
 
-
-	############################################################################
+	# ##########################################################################
 	# Transformer ##############################################################
-	#
 
 	private static function getTransformerKeyFromOptions( $options ) {
-
 		$foundTransformers = [];
 		foreach ( $options as $key => $val ) {
 			if ( strpos( $key, 't-' ) === 0 ) {
@@ -209,13 +197,10 @@ class JSONer
 				. "$numFoundTransformers provided: " . implode( ', ', $foundTransformers ) );
 	}
 
-
-	############################################################################
+	# ##########################################################################
 	# Misc #####################################################################
-	#
 
 	private static function doAutoload() {
-
 		if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
 			require_once __DIR__ . '/../vendor/autoload.php';
 		}

@@ -13,7 +13,6 @@ class Helper
 	 * @return array $results
 	 */
 	public static function extractOptions( array $options ) {
-
 		$results = [];
 		foreach ( $options as $option ) {
 			$pair = explode( '=', $option, 2 );
@@ -31,19 +30,19 @@ class Helper
 
 	/**
 	 * @param string $errorMessage The message to style.
+	 * @param string $debugText Will be encoded in base64 and put into the hover text.
+	 *                          Useful for debugging in prod.
 	 * @return string The message as HTML, styled in „error colors“.
 	 */
-	public static function errorMessage( $errorMessage ) {
-
-		return '<span style="color:#FFFFFF; background:#8B0000">' . $errorMessage . '</span>';
+	public static function errorMessage( $errorMessage, $debugText = '' ) {
+		$attrs = 'title="' . base64_encode( $debugText ) . "";
+		$attrs .= ' style="color:#FFFFFF; background:#8B0000; padding: 5px;';
+		return "<span $attrs>" . $errorMessage . '</span>';
 	}
 
 	public static function assertExtensionsInstalled( $extensions ) {
-
-		foreach ( $extensions as $extension )
-		{
+		foreach ( $extensions as $extension ) {
 			if ( !extension_loaded( $extension ) ) {
-
 				throw new \Exception( wfMessage( 'jsoner-extension-not-installed', $extension )
 						->plain() );
 			}
@@ -51,7 +50,6 @@ class Helper
 	}
 
 	public static function getArrayValueOrDefault( $array, $key, $default = null ) {
-
 		return isset( $array[$key] ) ? $array[$key] : $default;
 	}
 }
