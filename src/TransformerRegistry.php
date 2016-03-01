@@ -10,9 +10,11 @@ class TransformerRegistry
 	private $config;
 
 	private $transformers = [
-		't-JsonDump' => "\\jsoner\\transformer\\JsonDumpTransformer",
-		't-SingleElement' => "\\jsoner\\transformer\\SingleElementTransformer",
-		't-WikitextTable' => "\\jsoner\\transformer\\WikitextTableTransformer",
+		't-JsonDump' => '\\jsoner\\transformer\\JsonDumpTransformer',
+		't-SingleElement' => '\\jsoner\\transformer\\SingleElementTransformer',
+		't-WikitextTable' => '\\jsoner\\transformer\\WikitextTableTransformer',
+		't-InlineList' => '\\jsoner\\transformer\\InlineListTransformer',
+		't-StackedElement' => '\\jsoner\\transformer\\StackedElementTransformer',
 	];
 
 	public function __construct( $config ) {

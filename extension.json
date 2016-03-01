@@ -11,8 +11,7 @@
 		"_prefix": "jsoner",
 		"BaseUrl": null,
 		"User": null,
-		"Pass": null,
-		"Debug": false
+		"Pass": null
 	},
 	"ConfigRegistry": {
 		"jsoner": "JSONerHooks::buildConfig"
@@ -43,7 +42,9 @@
 		"jsoner\\transformer\\AbstractTransformer": "src/transformer/Transformer.php",
 		"jsoner\\transformer\\JsonDumpTransformer": "src/transformer/JsonDumpTransformer.php",
 		"jsoner\\transformer\\WikitextTransformer": "src/transformer/WikitextTransformer.php",
-		"jsoner\\transformer\\SingleElementTransformer": "src/transformer/SingleElementTransformer.php"
+		"jsoner\\transformer\\SingleElementTransformer": "src/transformer/SingleElementTransformer.php",
+		"jsoner\\transformer\\InlineListTransformer": "src/transformer/InlineListTransformer.php",
+		"jsoner\\transformer\\StackedElementTransformer": "src/transformer/StackedElementTransformer.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": [
