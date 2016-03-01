@@ -193,8 +193,9 @@ class JSONer
 			return $foundTransformers[0];
 		}
 
-		throw new TransformerException( "Must provide exactly one transformer. "
-				. "$numFoundTransformers provided: " . implode( ', ', $foundTransformers ) );
+		$msg = "Must provide exactly one transformer ($numFoundTransformers provided)";
+		($numFoundTransformers !== 0) ? $msg .= ': ' . implode(', ', $foundTransformers): $msg .= '!';
+		throw new TransformerException( $msg );
 	}
 
 	# ##########################################################################
