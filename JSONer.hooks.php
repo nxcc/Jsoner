@@ -41,7 +41,7 @@ class JSONerHooks
 		$options = Helper::extractOptions( array_slice( func_get_args(), 1 ) );
 
 		$jsoner = new JSONer( $config, $options );
-		return $jsoner->run();
+		return [$jsoner->run(), 'noparse' => false];
 	}
 
 	private static function getConfig() {
