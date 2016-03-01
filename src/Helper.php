@@ -50,4 +50,8 @@ class Helper
 		}
 	}
 
+	public static function getArrayValueOrDefault( $array, $key, $default = null ) {
+
+		return isset( $array[$key] ) ? $array[$key] : $default;
+	}
 }
