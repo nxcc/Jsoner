@@ -21,6 +21,8 @@ class SelectKeysFilter implements Filter
 		$select_these_keys = $params;
 
 		foreach ( $array as $item ) {
+			FilterHelper::assertIsArrayOrThrow( $item );
+
 			$result[] = array_intersect_key( $item, array_flip( $select_these_keys ) );
 		}
 		return $result;

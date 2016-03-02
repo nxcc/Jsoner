@@ -19,6 +19,7 @@ class RemoveKeysFilter implements Filter
 	public static function doFilter( $array, $params ) {
 
 		foreach ( $array as &$item ) {
+			FilterHelper::assertIsArrayOrThrow( $item );
 			foreach ( $params as $key ) {
 				unset( $item[$key] );
 			}
