@@ -40,8 +40,8 @@ class Helper
 	 * @return string The message as HTML, styled in „error colors“.
 	 */
 	public static function errorMessage( $errorMessage, $debugText = '' ) {
-		if (is_array($debugText)) {
-			$debugText = implode(';=;', $debugText);
+		if ( is_array( $debugText ) ) {
+			$debugText = implode( ';=;', $debugText );
 		}
 
 		$attrs = 'title="' . base64_encode( $debugText ) . '"';

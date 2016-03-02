@@ -17,7 +17,6 @@ class SelectKeysFilter implements Filter
 	}
 
 	public static function doFilter( $array, $params ) {
-
 		$result = [];
 		$select_these_keys = $params;
 

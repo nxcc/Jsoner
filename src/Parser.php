@@ -12,7 +12,6 @@ class Parser
 	 * @param Config $config
 	 */
 	public function __construct( $config ) {
-
 		$this->config = $config;
 	}
 
@@ -53,7 +52,6 @@ class Parser
 	 * @return Config
 	 */
 	public function getConfig() {
-
 		return $this->config;
 	}
 

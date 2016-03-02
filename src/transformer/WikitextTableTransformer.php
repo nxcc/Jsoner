@@ -7,7 +7,7 @@ use jsoner\Helper;
 class WikitextTableTransformer extends AbstractTransformer
 {
 	public function transformZero( $options ) {
-		return Helper::errorMessage("No elements to transform.", [__METHOD__, $options]);
+		return Helper::errorMessage( "No elements to transform.", [__METHOD__, $options] );
 	}
 
 	public function transformOne( $json , $options ) {
