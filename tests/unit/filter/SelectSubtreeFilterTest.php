@@ -5,34 +5,56 @@ use jsoner\Parser;
 
 class SelectSubtreeFilterTest extends \PHPUnit_Framework_TestCase
 {
-	public function inOutDataProvider() {
-
+	public function testDataProvider() {
 		return [
-			['menu', '{"menu":{"id":"file","value":"File","popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}}', '{"id":"file","value":"File","popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}'],
-			['menuitem', '{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}', '[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]'],
-			['small', '{"small":{"0":"a","1":"b"}}', '{"0":"a","1":"b"}'],
+			[
+				'menu',
+				'{"menu":{"id":"file","value":"File","popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}}',
+				'{"id":"file","value":"File","popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}'
+			],
+			[
+				'menuitem',
+				'{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}',
+				'[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"},{"value":"Close","onclick":"CloseDoc()"}]'
+			],
+			[
+				'small',
+				'{"small":{"0":"a","1":"b"}}',
+				'{"0":"a","1":"b"}'
+			],
 
 			# If the data from the parser contains a list of objects, the filter should do nothing
-			['0', '[{"key": "value"},{"key": "value"}]', '[{"key": "value"},{"key": "value"}]'],
+			[
+				'0',
+				'[{"key": "value"},{"key": "value"}]',
+				'[{"key": "value"},{"key": "value"}]'
+			],
 
 			# Empty data
-			['', '[]', '[]'],
-			['', '{}', '{}'],
+			[
+				'',
+				'[]',
+				'[]'
+			],
+			[
+				'',
+				'{}',
+				'{}'
+			],
 		];
 	}
 
 	/**
-	 * @dataProvider inOutDataProvider
+	 * @dataProvider testDataProvider
 	 */
-	public function testFilter( $subtree, $unfiltered, $filtered ) {
+	public function testFilter( $filterParams, $input, $expected, $message = '' ) {
+		$input = Parser::jsonDecode( $input );
+		$expected = Parser::jsonDecode( $expected );
 
-		$unfiltered_array = Parser::jsonDecode( $unfiltered );
-		$filtered_array = Parser::jsonDecode( $filtered );
+		$output = SelectSubtreeFilter::doFilter( $input, $filterParams );
 
-		$a = SelectSubtreeFilter::doFilter( $unfiltered_array, $subtree );
-
-		$this->assertTrue( $filtered_array === $a,
-			"SelectSubtreeFilter did not select subtree!"
+		$this->assertTrue( $expected === $output,
+			'The SelectSubtreeFilter ' . lcfirst( $message ) . '.'
 		);
 	}
 }
