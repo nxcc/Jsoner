@@ -21,17 +21,7 @@ class Parser
 	 * @throws ParserException If $json_as_string is invalid JSON.
 	 */
 	public function parse( $json_as_string ) {
-
-		// Hide warning if there is one
-		// See: http://stackoverflow.com/a/2348181/488265
 		$decoded_json = self::jsonDecode( $json_as_string );
-
-		// PHP sucks
-		if ( $decoded_json === null && json_last_error() !== JSON_ERROR_NONE ) {
-			$error_message = json_last_error_msg();
-			$error_code = json_last_error();
-			throw new ParserException( $error_message, $error_code );
-		}
 
 		$errorKey = $this->config['Parser-ErrorKey'];
 		if ( array_key_exists( $errorKey, $decoded_json ) ) {
@@ -56,9 +46,17 @@ class Parser
 	}
 
 	public static function jsonDecode( $json_as_string ) {
-
 		// Hide warning if there is one
 		// See: http://stackoverflow.com/a/2348181/488265
-		return @json_decode( $json_as_string, true );
+		$decoded_json = @json_decode( $json_as_string, true );
+
+		// PHP sucks
+		if ( $decoded_json === null && json_last_error() !== JSON_ERROR_NONE ) {
+			$error_message = json_last_error_msg();
+			$error_code = json_last_error();
+			throw new ParserException( $error_message, $error_code );
+		}
+
+		return $decoded_json;
 	}
 }
