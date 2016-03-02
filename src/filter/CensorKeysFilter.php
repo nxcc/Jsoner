@@ -19,8 +19,11 @@ class CensorKeysFilter implements Filter
 	public static function doFilter( $array, $params ) {
 		$dummy = array_pop( $params );
 		foreach ( $params as $key ) {
-			if ( array_key_exists( $key, $array ) ) {
-				$array[$key] = $dummy;
+			foreach ( $array as &$item ) {
+				FilterHelper::assertIsArrayOrThrow( $item );
+				if ( array_key_exists( $key, $item ) ) {
+					$item[$key] = $dummy;
+				}
 			}
 		}
 		return $array;
