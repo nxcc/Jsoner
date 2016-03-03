@@ -10,10 +10,10 @@ use jsoner\exceptions\TransformerException;
 use jsoner\exceptions\ParserException;
 use jsoner\filter\Filter;
 
-class JSONer
+class Jsoner
 {
 	/**
-	 * @var \jsoner\Config The configuration for JSONer (global)
+	 * @var \jsoner\Config The configuration for Jsoner (global)
 	 */
 	private $config;
 
@@ -23,8 +23,8 @@ class JSONer
 	private $options;
 
 	/**
-	 * JSONer constructor.
-	 * @param \Config $mwConfig Configuration for JSONer in a MediaWiki data structure.
+	 * Jsoner constructor.
+	 * @param \Config $mwConfig Configuration for Jsoner in a MediaWiki data structure.
 	 * @param $options
 	 */
 	public function __construct( $mwConfig, $options ) {

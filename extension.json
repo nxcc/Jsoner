@@ -3,7 +3,7 @@
 	"author": [
       "Jonas Gröger ([mailto:jonas.groeger@noris.de Mail], [https://noris.de Web])"
 	],
-	"url": "https://gitlab.noris.net/cda-ad/JSONer",
+	"url": "https://gitlab.noris.net/cda-ad/Jsoner",
 	"descriptionmsg": "jsoner-desc",
 	"type": "parserhook",
 	"config": {
@@ -13,12 +13,12 @@
 		"Pass": null
 	},
 	"ConfigRegistry": {
-		"jsoner": "JSONerHooks::buildConfig"
+		"jsoner": "JsonerHooks::buildConfig"
 	},
 	"AutoloadClasses": {
-		"JSONerHooks": "JSONer.hooks.php",
+		"JsonerHooks": "Jsoner.hooks.php",
 
-		"jsoner\\JSONer": "src/JSONer.php",
+		"jsoner\\Jsoner": "src/Jsoner.php",
 		"jsoner\\Resolver": "src/Resolver.php",
 		"jsoner\\Parser": "src/Parser.php",
 		"jsoner\\Config": "src/Config.php",
@@ -47,14 +47,14 @@
 	},
 	"Hooks": {
 		"ParserFirstCallInit": [
-			"JSONerHooks::onParserSetup"
+			"JsonerHooks::onParserSetup"
 		]
 	},
 	"ExtensionMessagesFiles": {
-		"JSONerMagic": "JSONer.i18n.magic.php"
+		"JsonerMagic": "Jsoner.i18n.magic.php"
 	},
 	"MessagesDirs": {
-		"JSONer": [
+		"Jsoner": [
 			"i18n"
 		]
 	},
@@ -72,7 +72,7 @@
 		}
 	},
 	"ResourceFileModulePaths": {
-		"remoteExtPath": "JSONer"
+		"remoteExtPath": "Jsoner"
 	},
 	"load_composer_autoloader": true,
 	"manifest_version": 1

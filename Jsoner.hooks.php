@@ -1,27 +1,27 @@
 <?php
 
 use jsoner\Helper;
-use jsoner\JSONer;
+use jsoner\Jsoner;
 
 /**
- * Hooks for the JSONer extension.
+ * Hooks for the Jsoner extension.
  *
  * @ingroup Extensions
  */
-class JSONerHooks
+class JsonerHooks
 {
 	private static $configPrefix = 'jsoner';
 
 	public static function onParserSetup( &$parser ) {
 
-		$parser->setFunctionHook( 'jsoner', 'JSONerHooks::run' );
+		$parser->setFunctionHook( 'jsoner', 'JsonerHooks::run' );
 
 		return true; // Always return true, in order not to stop MW's hook processing!
 	}
 
 	/**
 	 * Provides a callback for configuration in extension.json
-	 * @return GlobalVarConfig The configuration for the JSONer extension
+	 * @return GlobalVarConfig The configuration for the Jsoner extension
 	 */
 	public static function buildConfig() {
 		return new GlobalVarConfig( self::$configPrefix );
@@ -40,7 +40,7 @@ class JSONerHooks
 
 		$options = Helper::extractOptions( array_slice( func_get_args(), 1 ) );
 
-		$jsoner = new JSONer( $config, $options );
+		$jsoner = new Jsoner( $config, $options );
 		return [$jsoner->run(), 'noparse' => false];
 	}
 

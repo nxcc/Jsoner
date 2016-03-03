@@ -1,5 +1,5 @@
 {
-  "name": "JSONer",
+  "name": "jsoner",
   "version": "0.0.1",
   "scripts": {
     "test": "grunt test"

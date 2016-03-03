@@ -4,6 +4,6 @@
 			"Jonas Gröger <jonas.groeger@noris.de>"
 		]
 	},
-	"jsoner-desc": "{{desc|name=JSONer|url=https://gitlab.noris.net/cda-ad/JSONer}}",
+	"jsoner-desc": "{{desc|name=Jsoner|url=https://gitlab.noris.net/cda-ad/Jsoner}}",
 	"jsoner-extension-not-installed": "This message will be shown when PHP cannot access an extension with name $1."
 }

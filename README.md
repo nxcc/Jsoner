@@ -1,4 +1,4 @@
-# JSONer
+# Jsoner
 
 This is a MediaWiki extension that allows one to embed external JSON data (i.e. from
 a REST API) into an article.
@@ -47,15 +47,15 @@ Download the extension and put it in your `extension/` folder.
 
 To enable this extension, add this to your `LocalSettings.php`:
 
-    wfLoadExtension( 'JSONer' );
+    wfLoadExtension( 'Jsoner' );
 
-This will enable the JSONer extension and add the following functions to the MediaWiki parser:
+This will enable the Jsoner extension and add the following functions to the MediaWiki parser:
 
 * `#jsoner` with parameters `url` and filters, [see below](#available-filters).
 
 ## Configuration
 
-The extension has multiple settings. Please put them after the `wfLoadExtension( 'JSONer' );`. 
+The extension has multiple settings. Please put them after the `wfLoadExtension( 'Jsoner' );`. 
 
 ### $jsonerBaseUrl (default = null)
 
@@ -74,7 +74,7 @@ If both are set, this is passed to cURL to authenticate. If omitted, cURL tries 
 
 ## Usage
 
-To use JSONer, first think of a resource you want to access. We will use `/person/42`, which
+To use Jsoner, first think of a resource you want to access. We will use `/person/42`, which
 will return
 
     {
@@ -125,15 +125,15 @@ This extension is under development. Anything may change.
 
 You can clone is using
 
-    git clone git@gitlab.noris.net:cda-ad/JSONer.git && cd JSONer
+    git clone git@gitlab.noris.net:cda-ad/Jsoner.git && cd Jsoner
     # Install NodeJS, npm and PHP composer
     make devenv
     
 To install it into your development MediaWiki, just symlink it to your `extensions` folder
 
-    # Assuming you are in JSONer folder
+    # Assuming you are in Jsoner folder
     cd /path/to/your/extensions/folder
-    ln -s /path/to/the/JSONer/extension JSONer
+    ln -s /path/to/the/Jsoner/extension Jsoner
     
 Then, install it [like described above](#installation).
 
