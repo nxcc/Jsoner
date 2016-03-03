@@ -1,4 +1,6 @@
 {
+	"@Note": "When updating this file please also update SemanticForms.php with the same changes.",
+	"load_composer_autoloader": true,
 	"name": "noris/jsoner",
 	"version": "0.0.1",
 	"author": [
