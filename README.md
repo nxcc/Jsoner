@@ -27,15 +27,25 @@ To test if they are enabled (use your php.ini):
 
 ## Installation
 
-Put the extension in your `extension/` folder or add this to your `composer.local.json`:
+### Download (recommended, with Composer)
+
+Put this to your `composer.local.json`:
 
     {
         "require": {
             "noris/jsoner": "0.0.*"
         }
     }
+    
+and run `composer update` (or `composer install` if you don't have a composer.lock yet). 
 
-Then, add this in your `LocalSettings.php`:
+### Download (not recommended, manually)
+
+Download the extension and put it in your `extension/` folder.
+
+### Add to MediaWiki
+
+To enable this extension, add this to your `LocalSettings.php`:
 
     wfLoadExtension( 'JSONer' );
 
@@ -49,7 +59,6 @@ The extension has multiple settings. Please put them after the `wfLoadExtension(
 
 ### $jsonerBaseUrl (default = null)
 
-    # Example
     $jsonerBaseUrl = 'https://example.com/api/';
 
 This can be used to prefix all `#jsoner` calls (the `url` argument specifically) with this url
@@ -58,7 +67,6 @@ you have to provide complete domains in `url`.
 
 ### $jsonerUser / $jsonerPass (default = null)
 
-    # Example
     $jsonerUser = '<your_user>';
     $jsonerPass = '<your_pass>';
 
@@ -128,6 +136,11 @@ To install it into your development MediaWiki, just symlink it to your `extensio
     ln -s /path/to/the/JSONer/extension JSONer
     
 Then, install it [like described above](#installation).
+
+To see what you can do run one of
+
+    make
+    make help
 
 To test, you can run
 
