@@ -1,7 +1,4 @@
-{
-	"@Note": "When updating this file please also update SemanticForms.php with the same changes.",
-	"load_composer_autoloader": true,
-	"name": "noris/jsoner",
+{	"name": "noris/jsoner",
 	"version": "0.0.1",
 	"author": [
       "Jonas Gröger ([mailto:jonas.groeger@noris.de Mail], [https://noris.de Web])"
@@ -77,5 +74,6 @@
 	"ResourceFileModulePaths": {
 		"remoteExtPath": "JSONer"
 	},
+	"load_composer_autoloader": true,
 	"manifest_version": 1
 }
