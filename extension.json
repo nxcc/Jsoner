@@ -24,7 +24,7 @@
 		"jsoner\\Config": "src/Config.php",
 		"jsoner\\FilterRegistry": "src/FilterRegistry.php",
 		"jsoner\\TransformerRegistry": "src/TransformerRegistry.php",
-		"jsoner\\exceptions\\CurlException": "src/exceptions/Exceptions.php",
+		"jsoner\\exceptions\\CurlException": "src/exceptions/CurlException.php",
 		"jsoner\\exceptions\\HttpUriFormatException": "src/exceptions/HttpUriFormatException.php",
 		"jsoner\\exceptions\\TransformerException": "src/exceptions/TransformerException.php",
 		"jsoner\\exceptions\\ParserException": "src/exceptions/ParserException.php",
