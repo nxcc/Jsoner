@@ -74,50 +74,334 @@ If both are set, this is passed to cURL to authenticate. If omitted, cURL tries 
 
 ## Usage
 
-To use Jsoner, first think of a resource you want to access. We will use `/person/42`, which
-will return
+Jsoner has a pipes and filters architecture. First, data is fetched, then filters are applied and
+finally, the data is thttp://pokeapi.co/api/v2/pokemon/1/ransformed in a representation.
 
-    {
-        "_id": 42,
-        "_type": "Person",
-        "name": "Jonas",
-        "age": 26,
-        "status": "developer"
-    }
+    Fetch → [Filter ...] → Tranformer
     
-and we want to filter this list to only return `name` and `status`. This can be done as follows:
+This looks like this in MediaWiki syntax:
+
+    // Fetch         → Filter              → Filter                  → Tranformer
+    {{ #jsoner:url=… | f-SelectSubtree=foo | f-SelectKeys=name,email | t-DumpJson }}
+
+Lets run something interesting:
+
+    {{ #jsoner:url=http://pokeapi.co/api/v2/pokemon/1/ | f-SelectSubtree=stats | t-JsonDump }}
+    
+    ↓
+    
+    [
+        {
+            "base_stat": 45,
+            "effort": 0,
+            "stat": {
+                "name": "speed",
+                "url": "http://pokeapi.co/api/v2/stat/6/"
+            }
+        },
+        {
+            "base_stat": 65,
+            "effort": 0,
+            "stat": {
+                "name": "special-defense",
+                "url": "http://pokeapi.co/api/v2/stat/5/"
+            }
+        },
+        {
+            "base_stat": 65,
+            "effort": 1,
+            "stat": {
+                "name": "special-attack",
+                "url": "http://pokeapi.co/api/v2/stat/4/"
+            }
+        },
+        {
+            "base_stat": 49,
+            "effort": 0,
+            "stat": {
+                "name": "defense",
+                "url": "http://pokeapi.co/api/v2/stat/3/"
+            }
+        },
+        {
+            "base_stat": 49,
+            "effort": 0,
+            "stat": {
+                "name": "attack",
+                "url": "http://pokeapi.co/api/v2/stat/2/"
+            }
+        },
+        {
+            "base_stat": 45,
+            "effort": 0,
+            "stat": {
+                "name": "hp",
+                "url": "http://pokeapi.co/api/v2/stat/1/"
+            }
+        }
+    ]
+
+As you can see, Filters are prefixed with `f-` and Transformers are prefixed with `t-`.
 
 ## Available Filters
 
-### SelectSubtreeFilter
+A typical call looks like this
 
-Given the following data
+    {{ #jsoner:url=… | f-SelectSubtree=foo | }}
+
+### CensorKeysFilter (`f-CensorKeys`)
+
+Runs on a list and returns a list. Usage: [`f-CensorKeys=key(,key)*,replacement`](http://regexr.com/3d0vn)
+
+Example: `t-CensorKeys=email,--protected--`
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+      }
+    ]   
+     
+    ↓
+        
+    [
+      {
+        "name": "Bob",
+        "email": "--protected--"
+      },
+      {
+        "name": "Tom",
+        "email": "--protected--"
+      }
+    ]
+
+### RemoveKeysFilter (`f-RemoveKeys`)
+
+Runs on a list and returns a list. Usage: [`f-RemoveKeys=key(,key)*`](http://regexr.com/3d0vt)
+
+Example: `t-RemoveKeys=email`
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+      }
+    ]   
+     
+    ↓
+        
+    [
+      {
+        "name": "Bob"
+      },
+      {
+        "name": "Tom"
+      }
+    ]
+
+### SelectKeysFilter (`f-SelectKeys`)
+
+Runs on a list and returns a list. Usage: [`f-SelectKeys=key(,key)*`](http://regexr.com/3d100)
+
+Example: `t-SelectKeys=email`
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+      }
+    ]
+
+    ↓
+
+    [
+      {
+        "email": "bob@example.com"
+      },
+      {
+        "email": "tom@example.com"
+      }
+    ]
+
+### SelectSubtreeFilter (`f-SelectSubtree`)
+
+Runs on an object and returns a list. Usage: [`f-SelectSubtree=key`](http://regexr.com/3d106)
+
+Example: `t-SelectSubtree=records`
+
     {
-        "_id": 42,
-        "_type": "Person",
-        "location": {
-            "city": "SomeCity",
-            "street": "SomeStreet",
+      "recordCount": 2,
+      "records": [
+        {
+          "name": "Bob",
+          "email": "bob@example.com"
         },
-        "age": 26,
-        "status": "developer"
-    }
-    
-And a filter like this
-
-    {{ #jsoner:url=… | subtree=location }}
-    
-Will return this
-
-    "location": {
-        "city": "SomeCity",
-        "street": "SomeStreet",
+        {
+          "name": "Tom",
+          "email": "tom@example.com"
+        }
+      ]
     }
 
-### SelectKeysFilter
+    ↓
 
-TODO: Document
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+      }
+    ]
 
+## Available Transformers
+
+There must be always a transformer at the end of the pipeline.
+
+### InlineListTransformer (`t-InlineList`)
+
+Creates a comma-separated list of values from a list.
+
+Usage: `t-InlineList=key`
+
+With a list as input, calling `t-InlineList=email`
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+      }
+    ]
+    
+    ↓
+    
+    bob@example.com, tom@example.com
+    
+Good for, you guessed it: lists!
+
+### JsonDumpTransformer (`t-JsonDump`)
+Dumps the JSON data into a `<pre>` tag. Nice for debugging.
+
+### SingleElementTransformer (`t-SingleElement`)
+
+Returns a single JSON value out of an object or a list. If the input is a list,
+the SingleElementTransformer will use the first element in the list to display something.
+
+Usage: `t-SingleElement=key`
+
+With a list as input, calling `t-SingleElement=name`
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+      }
+    ]
+    
+    ↓
+    
+    Bob
+    
+With an object as input, calling `t-SingleElement=name`
+
+    {
+        "name": "Bob",
+        "email": "bob@example.com"
+    }
+    
+    ↓
+    
+    Bob
+    
+Nice for single values like IDs.
+
+### StackedElementTransformer (`t-StackedElement`)
+Creates a `<br />` separated (on top of each other) stack out of an object or a list. If the input
+is a list, the StackedElementTransformer uses the first element in the list and displays that.
+
+With a list as input:
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+      }
+    ]
+    
+    ↓
+    
+    Bob
+    bob@example.com
+    
+With an object as input:
+
+    {
+        "name": "Tom",
+        "email": "tom@example.com"
+    }
+
+    ↓
+    
+    Tom
+    tom@example.com
+
+Useful for address data.
+
+### WikitextTableTransformer (`t-WikitextTable`)
+Creates a nice and sortable Wikitext table out of a list of objects.
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+      }
+    ]
+    
+    ↓
+    
+    ╔════════╦═════════════════╗
+    ║ name ▼ ║ email         ▼ ║
+    ╠════════╬═════════════════╣
+    ║ Bob    ║ bob@example.com ║
+    ║ Tom    ║ tom@example.com ║
+    ╚════════╩═════════════════╝
+
+## Limitations
+
+* If you set `$jsonerUser` and `$jsonerPass`, the authentification is used for every request. There
+  is currently no per-domain or per-request level setting for username and password (and maybe
+  rightfully so). One possibility would be to put a separate call, like `{{ #jsoner-unauth:url=… }}`
+  or something like that.
 
 ## Development
 
