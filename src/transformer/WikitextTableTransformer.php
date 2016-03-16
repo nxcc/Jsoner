@@ -65,7 +65,7 @@ class WikitextTableTransformer extends AbstractTransformer
 
 				// We found no appropriate representation for a nested array
 				if ( $valueRepresentation === null ) {
-					$valueRepresentation = "'''''Verschachtelt'''''";
+					$valueRepresentation = "'''''Nested'''''";
 				}
 			}
 
