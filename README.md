@@ -33,7 +33,7 @@ Put this to your `composer.local.json`:
 
     {
         "require": {
-            "noris/jsoner": "0.0.*"
+            "noris/jsoner": "~1.0"
         }
     }
     
