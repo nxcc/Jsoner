@@ -10,10 +10,10 @@ class FilterRegistry
 	private $config;
 
 	private $filters = [
-		'f-SelectKeys' =>    "\\jsoner\\filter\\JsonDumpTransformer",
-		'f-SelectSubtree' => "\\jsoner\\filter\\SingleElementTransformer",
-		'f-RemoveKeys' =>    "\\jsoner\\filter\\WikitextTableTransformer",
 		'f-CensorKeys' =>    "\\jsoner\\filter\\CensorKeysFilter",
+		'f-RemoveKeys' =>    "\\jsoner\\filter\\RemoveKeysFilter",
+		'f-SelectKeys' =>    "\\jsoner\\filter\\SelectKeysFilter",
+		'f-SelectSubtree' => "\\jsoner\\filter\\SelectSubtreeFilter",
 	];
 
 	public function __construct( $config ) {
