@@ -2,7 +2,6 @@
 
 namespace jsoner\filter;
 
-
 class FilterHelper
 {
 	public static function assertIsArrayOrThrow( $maybeArray, $exception = \Exception::class ) {

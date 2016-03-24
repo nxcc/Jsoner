@@ -3,7 +3,6 @@ devenv: _composer ## Install PHP dependencies
 	@npm install
 	@composer install
 
-
 test: ## Run PHP tests
 	@composer test
 

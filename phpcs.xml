@@ -12,9 +12,6 @@
 
 	<rule ref="Generic.Files.LineLength.TooLong">
 		<exclude-pattern>tests/unit/ParserTest.php</exclude-pattern>
-		<exclude-pattern>tests/unit/filter/CensorKeysFilterTest.php</exclude-pattern>
-		<exclude-pattern>tests/unit/filter/RemoveKeysFilterTest.php</exclude-pattern>
-		<exclude-pattern>tests/unit/filter/SelectKeysFilterTest.php</exclude-pattern>
-		<exclude-pattern>tests/unit/filter/SelectSubtreeFilterTest.php</exclude-pattern>
+		<exclude-pattern>tests/unit/filter/*.php</exclude-pattern>
 	</rule>
 </ruleset>
