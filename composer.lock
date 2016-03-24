@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1dd8818c7e9760fed03b05d810746a8f",
-    "content-hash": "6b68548507d1fcf130d92081d0cafe59",
+    "hash": "a0a3f4a5ba642077bbfda30714c2fb57",
+    "content-hash": "504b5e57fd0a1db4bac9959a759d896b",
     "packages": [
         {
             "name": "composer/installers",
@@ -169,16 +169,16 @@
         },
         {
             "name": "league/uri",
-            "version": "4.1.0",
+            "version": "4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri.git",
-                "reference": "a4f0ea3323745214c955af2f6451d7743f30a076"
+                "reference": "0cbce9fe7d9808690ebda67b110ad96bcae9daee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri/zipball/a4f0ea3323745214c955af2f6451d7743f30a076",
-                "reference": "a4f0ea3323745214c955af2f6451d7743f30a076",
+                "url": "https://api.github.com/repos/thephpleague/uri/zipball/0cbce9fe7d9808690ebda67b110ad96bcae9daee",
+                "reference": "0cbce9fe7d9808690ebda67b110ad96bcae9daee",
                 "shasum": ""
             },
             "require": {
@@ -229,7 +229,7 @@
                 "url",
                 "ws"
             ],
-            "time": "2016-02-18 14:46:01"
+            "time": "2016-03-24 08:38:29"
         },
         {
             "name": "psr/http-message",
@@ -279,6 +279,49 @@
                 "response"
             ],
             "time": "2015-05-04 20:22:00"
+        },
+        {
+            "name": "rwillians/stingray",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rwillians/stingray.git",
+                "reference": "a25ce2c0e2cd9854d97531e9075eb7c8073dbfa2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rwillians/stingray/zipball/a25ce2c0e2cd9854d97531e9075eb7c8073dbfa2",
+                "reference": "a25ce2c0e2cd9854d97531e9075eb7c8073dbfa2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rwillians\\Stingray\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthew Ratzke",
+                    "email": "matthew.003@me.com"
+                },
+                {
+                    "name": "Rafael Willians",
+                    "email": "me@rwillians.com"
+                }
+            ],
+            "description": "Dot notation reader/writer for multidimensional arrays in PHP.",
+            "time": "2015-11-11 20:40:22"
         }
     ],
     "packages-dev": [
@@ -814,16 +857,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.2.10",
+            "version": "5.2.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "37fa29b17b87a3e9f0a4d77c42f0aac5183b84d1"
+                "reference": "6f0948bab32270352f97d1913d82a49338dcb0da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/37fa29b17b87a3e9f0a4d77c42f0aac5183b84d1",
-                "reference": "37fa29b17b87a3e9f0a4d77c42f0aac5183b84d1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6f0948bab32270352f97d1913d82a49338dcb0da",
+                "reference": "6f0948bab32270352f97d1913d82a49338dcb0da",
                 "shasum": ""
             },
             "require": {
@@ -884,20 +927,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-03-03 08:52:58"
+            "time": "2016-03-15 05:59:58"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.0.6",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "49bc700750196c04dd6bc2c4c99cb632b893836b"
+                "reference": "7c34c9bdde4131b824086457a3145e27dba10ca1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/49bc700750196c04dd6bc2c4c99cb632b893836b",
-                "reference": "49bc700750196c04dd6bc2c4c99cb632b893836b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/7c34c9bdde4131b824086457a3145e27dba10ca1",
+                "reference": "7c34c9bdde4131b824086457a3145e27dba10ca1",
                 "shasum": ""
             },
             "require": {
@@ -915,7 +958,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "3.1.x-dev"
                 }
             },
             "autoload": {
@@ -940,7 +983,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-12-08 08:47:06"
+            "time": "2016-03-24 05:58:25"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

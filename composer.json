@@ -20,6 +20,7 @@
 		"ext-intl": "*",
 		"ext-mbstring": "*",
 		"league/uri": "4.1.*",
+		"rwillians/stingray": "^2.0",
 		"composer/installers": "~1.0"
 	},
 	"autoload": {
