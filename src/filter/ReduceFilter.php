@@ -3,6 +3,7 @@
 namespace jsoner\filter;
 
 use jsoner\Config;
+use Rwillians\Stingray\Stingray;
 
 class ReduceFilter implements Filter
 {
@@ -15,13 +16,21 @@ class ReduceFilter implements Filter
 		$this->config = $config;
 	}
 
-	public static function doFilter($array, $params) {
+	public static function doFilter( $array, $params ) {
 
-		$selector = $params[0];
-		$new_variable = $params[1];
+		$variable_name = $params[0];
+		$selector = $params[1];
 
-		foreach ( $array as &$item ) {
+		$array_copy = $array;
 
+		foreach ( $array_copy as $index => $item ) {
+			FilterHelper::assertIsArrayOrThrow( $item );
+
+			$nested_value = Stingray::get( $item, $selector );
+			$item[$variable_name] = $nested_value;
+			$array[$index] = $item;
 		}
+
+		return $array;
 	}
 }
