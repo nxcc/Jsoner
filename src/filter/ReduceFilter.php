@@ -4,7 +4,7 @@ namespace jsoner\filter;
 
 use jsoner\Config;
 
-class RemoveKeysFilter implements Filter
+class ReduceFilter implements Filter
 {
 	private $config;
 
@@ -15,14 +15,13 @@ class RemoveKeysFilter implements Filter
 		$this->config = $config;
 	}
 
-	public static function doFilter( $array, $params ) {
+	public static function doFilter($array, $params) {
+
+		$selector = $params[0];
+		$new_variable = $params[1];
 
 		foreach ( $array as &$item ) {
-			FilterHelper::assertIsArrayOrThrow( $item );
-			foreach ( $params as $key ) {
-				unset( $item[$key] );
-			}
+
 		}
-		return $array;
 	}
 }

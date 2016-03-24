@@ -98,6 +98,7 @@ class Jsoner
 			'subtree' => ['SelectSubtreeFilter', 1], // 1 Argument
 			'select' => ['SelectKeysFilter', -1],    // Varargs
 			'remove' => ['RemoveKeysFilter', -1],    // Varargs
+			'reduce' => ['ReduceFilter', 2]
 		];
 
 		$filters = [];

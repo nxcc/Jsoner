@@ -32,6 +32,7 @@
 		"jsoner\\Helper": "src/Helper.php",
 
 		"jsoner\\filter\\Filter": "src/filter/Filter.php",
+		"jsoner\\filter\\ReduceFilter": "src/filter/ReduceFilter.php",
 		"jsoner\\filter\\CensorKeysFilter": "src/filter/CensorKeysFilter.php",
 		"jsoner\\filter\\RemoveKeysFilter": "src/filter/RemoveKeysFilter.php",
 		"jsoner\\filter\\SelectSubtreeFilter": "src/filter/SelectSubtreeFilter.php",
