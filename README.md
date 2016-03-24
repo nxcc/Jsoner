@@ -410,15 +410,14 @@ This extension is under development. Anything may change.
 You can clone is using
 
     git clone git@gitlab.noris.net:cda-ad/Jsoner.git && cd Jsoner
-    # Install NodeJS, npm and PHP composer
     make devenv
-    
+
 To install it into your development MediaWiki, just symlink it to your `extensions` folder
 
     # Assuming you are in Jsoner folder
     cd /path/to/your/extensions/folder
     ln -s /path/to/the/Jsoner/extension Jsoner
-    
+
 Then, install it [like described above](#installation).
 
 To see what you can do run one of
