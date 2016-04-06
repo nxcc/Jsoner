@@ -179,6 +179,50 @@ Example: `t-CensorKeys=email,--protected--`
       }
     ]
 
+### ReduceKeysFilter (`f-ReduceKeys`)
+
+Runs on a list and returns a list. Usage: [`f-ReduceKeys=key(,key)*`](http://regexr.com/3d5kp)
+
+Example: `t-ReduceKeys=mail,data.email`
+
+    [
+      {
+        "id": "1",
+        "data": {
+          "email": "bob@example.com",
+          "city": "Berlin"
+        }
+      },
+      {
+        "id": 2,
+        "data": {
+          "email": "tom@example.com",
+          "city": "Hamburg"
+        }
+      }
+    ]
+
+    ↓
+    
+    [
+      {
+        "id": "1",
+        "data": {
+          "email": "bob@example.com",
+          "city": "Berlin"
+        },
+        "mail": "bob@example.com"
+      },
+      {
+        "id": 2,
+        "data": {
+          "email": "tom@example.com",
+          "city": "Hamburg"
+        },
+        "mail": "tom@example.com"
+      }
+    ]
+
 ### RemoveKeysFilter (`f-RemoveKeys`)
 
 Runs on a list and returns a list. Usage: [`f-RemoveKeys=key(,key)*`](http://regexr.com/3d0vt)
@@ -194,7 +238,7 @@ Example: `t-RemoveKeys=email`
         "name": "Tom",
         "email": "tom@example.com"
       }
-    ]   
+    ]
      
     ↓
         
