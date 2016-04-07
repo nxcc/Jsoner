@@ -75,13 +75,13 @@ If both are set, this is passed to cURL to authenticate. If omitted, cURL tries 
 ## Usage
 
 Jsoner has a pipes and filters architecture. First, data is fetched, then filters are applied and
-finally, the data is thttp://pokeapi.co/api/v2/pokemon/1/ransformed in a representation.
+finally, the data is transformed in a representation.
 
-    Fetch → [Filter ...] → Tranformer
+    Fetch → [Filter ...] → Transformer
     
 This looks like this in MediaWiki syntax:
 
-    // Fetch         → Filter              → Filter                  → Tranformer
+    // Fetch         → Filter              → Filter                  → Transformer
     {{ #jsoner:url=… | f-SelectSubtree=foo | f-SelectKeys=name,email | t-DumpJson }}
 
 Lets run something interesting:
