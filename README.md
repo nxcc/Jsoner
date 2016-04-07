@@ -482,4 +482,4 @@ To clean, you can run
     make clean
 
 ## License
-None yet.
+GPL v3

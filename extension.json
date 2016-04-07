@@ -5,6 +5,7 @@
 	],
 	"url": "https://gitlab.noris.net/cda-ad/Jsoner",
 	"descriptionmsg": "jsoner-desc",
+	"license-name": "GPL-3.0",
 	"type": "parserhook",
 	"config": {
 		"_prefix": "jsoner",
