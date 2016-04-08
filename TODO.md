@@ -5,3 +5,7 @@
 * Add integration tests
 * Create config class
 * Create RequestOptions class
+* Fix subtree -> f-SelectSubtree
+      select -> f-SelectKeys
+      remove -> f-RemoveKeys
+      reduce -> f-RemoveKeys
