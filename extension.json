@@ -40,7 +40,7 @@
 		"jsoner\\filter\\SelectKeysFilter": "src/filter/SelectKeysFilter.php",
 
 		"jsoner\\transformer\\Transformer": "src/transformer/Transformer.php",
-		"jsoner\\transformer\\AbstractTransformer": "src/transformer/Transformer.php",
+		"jsoner\\transformer\\AbstractTransformer": "src/transformer/AbstractTransformer.php",
 		"jsoner\\transformer\\JsonDumpTransformer": "src/transformer/JsonDumpTransformer.php",
 		"jsoner\\transformer\\WikitextTransformer": "src/transformer/WikitextTransformer.php",
 		"jsoner\\transformer\\SingleElementTransformer": "src/transformer/SingleElementTransformer.php",
