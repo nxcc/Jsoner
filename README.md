@@ -1,3 +1,20 @@
+# TL;DR (MW 1.25+)
+
+Install `curl`, `fileinfo`, `intl` and `mbstring` for PHP. Put this in your `composer.local.json`:
+
+    {
+        "require": {
+            "noris/jsoner": "~1.0"
+        }
+    }
+    
+and run `composer update`. Then, append this to your LocalSettings.php:
+
+    wfLoadExtension( 'Jsoner' );
+    $jsonerBaseUrl = 'https://example.com/api/';
+    $jsonerUser = '<your_user>';
+    $jsonerPass = '<your_pass>';
+
 # Jsoner
 
 This is a MediaWiki extension that allows one to embed external JSON data (i.e. from
