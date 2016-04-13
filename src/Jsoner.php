@@ -25,7 +25,7 @@ class Jsoner
 	/**
 	 * Jsoner constructor.
 	 * @param \Config $mwConfig Configuration for Jsoner in a MediaWiki data structure.
-	 * @param $options
+	 * @param array $options
 	 */
 	public function __construct( $mwConfig, $options ) {
 		$this->config = new Config( [
