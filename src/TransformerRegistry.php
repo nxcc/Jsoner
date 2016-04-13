@@ -36,6 +36,6 @@ class TransformerRegistry
 			return new $transformerClass( $this->config );
 		}
 
-		throw new TransformerException( "No such transformer: '$key'." );
+		throw new TransformerException( "No such transformer: $key" );
 	}
 }

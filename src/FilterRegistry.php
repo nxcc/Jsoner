@@ -36,7 +36,7 @@ class FilterRegistry
 			return new $filterKey( $this->config );
 		}
 
-		throw new FilterException( "No such filter: '$key'." );
+		throw new FilterException( "No such filter: $key" );
 	}
 
 	public function getFiltersByKeys( $filterKeys ) {

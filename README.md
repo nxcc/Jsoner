@@ -99,7 +99,7 @@ finally, the data is transformed in a representation.
 This looks like this in MediaWiki syntax:
 
     // Fetch         → Filter              → Filter                  → Transformer
-    {{ #jsoner:url=… | f-SelectSubtree=foo | f-SelectKeys=name,email | t-DumpJson }}
+    {{ #jsoner:url=… | f-SelectSubtree=foo | f-SelectKeys=name,email | t-JsonDump }}
 
 Lets run something interesting:
 
