@@ -95,10 +95,10 @@ class Jsoner
 
 	private static function mapUserParametersToFiltersWithParams( $options ) {
 		$filterMap = [
-			'subtree' => ['SelectSubtreeFilter', 1], // 1 Argument
-			'select' => ['SelectKeysFilter', -1],    // Varargs
-			'remove' => ['RemoveKeysFilter', -1],    // Varargs
-			'reduce' => ['ReduceFilter', 2]
+			'f-SelectSubtree' => ['SelectSubtreeFilter', 1], // 1 Argument
+			'f-SelectKeys' => ['SelectKeysFilter', -1],      // Varargs
+			'f-RemoveKeys' => ['RemoveKeysFilter', -1],      // Varargs
+			'f-Reduce' => ['ReduceFilter', 2]                // 2 Arguments
 		];
 
 		$filters = [];
