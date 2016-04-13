@@ -2,10 +2,10 @@
 devenv: _composer ## Install PHP dependencies
 	@composer install
 
-test: ## Run PHP tests
+test: devenv ## Run PHP tests
 	@composer test
 
-fix: ## Fix coding standard violations / Format the code
+fix: devenv ## Fix coding standard violations / Format the code
 	@phpcbf || true
 
 clean: ## Remove installed PHP and JS dependencies
