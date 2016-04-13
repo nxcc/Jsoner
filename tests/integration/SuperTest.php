@@ -40,16 +40,16 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 
 	public function testBasicWebserver() {
 		$options = [
-			'url' => self::makeUrl('testBasicWebserver.json'),
+			'url' => self::makeUrl( 'testBasicWebserver.json' ),
 			't-JsonDump' => null
 		];
-		$jsoner = new Jsoner( $this->config, $options);
+		$jsoner = new Jsoner( $this->config, $options );
 		$out = $jsoner->run();
 		echo $out;
 	}
 
-	public static function makeUrl($query) {
-		return sprintf("http://%s:%d/$query",
+	public static function makeUrl( $query ) {
+		return sprintf( "http://%s:%d/$query",
 				WEB_SERVER_HOST,
 				WEB_SERVER_PORT
 		);

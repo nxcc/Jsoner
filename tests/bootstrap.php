@@ -17,7 +17,7 @@ echo sprintf(
 		date( 'r' ),
 		WEB_SERVER_HOST,
 		WEB_SERVER_PORT,
-		realpath(WEB_SERVER_DOCROOT),
+		realpath( WEB_SERVER_DOCROOT ),
 		$pid
 	) . PHP_EOL;
 
