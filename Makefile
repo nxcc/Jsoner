@@ -18,6 +18,10 @@ update: _composer ## Update PHP dependencies (from composer.json)
 tail: ## Watch the apache error log
 	@sudo multitail --mergeall -ci green /var/log/apache2/access.log -ci red /var/log/apache2/error.log
 
+# Requires 'sudo gem install guard guard-phpunit2'
+guard:
+	guard
+
 prodenv: _composer ## Install PHP dependencies without development dependencies
 	@composer install --no-dev --optimize-autoloader
 

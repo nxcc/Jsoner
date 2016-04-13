@@ -2,24 +2,6 @@
 
 namespace jsoner;
 
-class FakeMWConfig
-{
-	private $store;
-
-	public function __construct( $initial_values = [] ) {
-
-		$this->store = $initial_values;
-	}
-
-	public function get( $name ) {
-
-		if ( array_key_exists( $name, $this->store ) ) {
-			return $this->store[$name];
-		}
-		throw new \UnexpectedValueException( $name . " not in config." );
-	}
-}
-
 class SuperTest extends \PHPUnit_Framework_TestCase
 {
 	private $config;
@@ -35,24 +17,43 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 	public function testJsonerConstruct() {
 		$options = [];
 		$jsoner = new Jsoner( $this->config, $options );
+
 		$this->assertNotNull( $jsoner );
 	}
 
-	public function testBasicWebserver() {
+	public function testBasic() {
 		$options = [
-			'url' => self::makeUrl( 'testBasicWebserver.json' ),
+			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ . '.json' ),
 			't-JsonDump' => null
 		];
 		$jsoner = new Jsoner( $this->config, $options );
-		$out = $jsoner->run();
-		echo $out;
+		$output = $jsoner->run();
+
+		$this->assertContains('test', $output);
 	}
 
-	public static function makeUrl( $query ) {
-		return sprintf( "http://%s:%d/$query",
-				WEB_SERVER_HOST,
-				WEB_SERVER_PORT
-		);
+	public function testOrderOfSelect1() {
+		$options = [
+			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ . '.json' ),
+			'f-SelectKeys=email,name' => null,
+			't-JsonDump' => null
+		];
+		$jsoner = new Jsoner( $this->config, $options );
+		$output = $jsoner->run();
+		echo $output;
+		$this->assertRegExp('/email.*name/s', $output);
+	}
+
+	public function testOrderOfSelect2() {
+		$options = [
+				'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ . '.json' ),
+				'f-SelectKeys=name,email' => null,
+				't-JsonDump' => null
+		];
+		$jsoner = new Jsoner( $this->config, $options );
+		$output = $jsoner->run();
+		echo $output;
+		$this->assertRegExp('/name.*email/s', $output);
 	}
 }
 

@@ -1,4 +1,10 @@
 <?php
+
+// Autoload dependencies
+if ( file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/../vendor/autoload.php';
+}
+
 // Command that starts the built-in web server
 $command = sprintf(
 	'php -S %s:%d -t %s >/dev/null 2>&1 & echo $!',
