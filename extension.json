@@ -3,7 +3,7 @@
 	"author": [
       "Jonas Gröger ([mailto:jonas.groeger@noris.de Mail], [https://noris.de Web])"
 	],
-	"url": "https://gitlab.noris.net/cda-ad/Jsoner",
+	"url": "https://github.com/noris-network/jsoner",
 	"descriptionmsg": "jsoner-desc",
 	"license-name": "GPL-3.0",
 	"type": "parserhook",

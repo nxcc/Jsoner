@@ -470,7 +470,7 @@ This extension is under development. Anything may change.
 
 You can clone is using
 
-    git clone git@gitlab.noris.net:cda-ad/Jsoner.git && cd Jsoner
+    git clone git@github.com:noris-network/Jsoner.git && cd jsoner
     make devenv
 
 To install it into your development MediaWiki, just symlink it to your `extensions` folder
