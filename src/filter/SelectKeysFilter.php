@@ -20,10 +20,16 @@ class SelectKeysFilter implements Filter
 		$result = [];
 		$select_these_keys = $params;
 
+		if (count($array) > 0 && !array_key_exists(0, $array)) {
+			$array = [$array];
+		}
+
 		foreach ( $array as $item ) {
 			FilterHelper::assertIsArrayOrThrow( $item );
 
-			$result[] = array_intersect_key( $item, array_flip( $select_these_keys ) );
+			$selected = array_intersect_key( $item, array_flip( $select_these_keys ) );
+			$selected_and_sorted = array_replace(array_flip($params), $selected);
+			$result[] = $selected_and_sorted;
 		}
 		return $result;
 	}

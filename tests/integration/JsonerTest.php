@@ -23,36 +23,31 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 
 	public function testBasic() {
 		$options = [
-			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ . '.json' ),
+			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ ),
 			't-JsonDump' => null
 		];
-		$jsoner = new Jsoner( $this->config, $options );
-		$output = $jsoner->run();
+		$output = (new Jsoner( $this->config, $options ))->run();
 
 		$this->assertContains('test', $output);
 	}
 
 	public function testOrderOfSelect1() {
 		$options = [
-			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ . '.json' ),
-			'f-SelectKeys=email,name' => null,
+			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ ),
+			'f-SelectKeys' => 'email,name',
 			't-JsonDump' => null
 		];
-		$jsoner = new Jsoner( $this->config, $options );
-		$output = $jsoner->run();
-		echo $output;
+		$output = (new Jsoner( $this->config, $options ))->run();
 		$this->assertRegExp('/email.*name/s', $output);
 	}
 
 	public function testOrderOfSelect2() {
 		$options = [
-				'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ . '.json' ),
-				'f-SelectKeys=name,email' => null,
-				't-JsonDump' => null
+			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ ),
+			'f-SelectKeys' => 'name,email',
+			't-JsonDump' => null
 		];
-		$jsoner = new Jsoner( $this->config, $options );
-		$output = $jsoner->run();
-		echo $output;
+		$output = (new Jsoner( $this->config, $options ))->run();
 		$this->assertRegExp('/name.*email/s', $output);
 	}
 }
