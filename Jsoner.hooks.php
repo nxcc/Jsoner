@@ -13,7 +13,6 @@ class JsonerHooks
 	private static $configPrefix = 'jsoner';
 
 	public static function onParserSetup( &$parser ) {
-
 		$parser->setFunctionHook( 'jsoner', 'JsonerHooks::run' );
 
 		return true; // Always return true, in order not to stop MW's hook processing!
