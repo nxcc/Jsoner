@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script creates a git tag
+# Undo with git tag -d …
+
 function print_done { printf "\e[1;32m☑  %s\e[m\n" "$1"; }
 function print_todo { printf "\e[1;32m☐  %s\e[m\n" "$1"; }
 
