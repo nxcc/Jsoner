@@ -26,9 +26,9 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ ),
 			't-JsonDump' => null
 		];
-		$output = (new Jsoner( $this->config, $options ))->run();
+		$output = ( new Jsoner( $this->config, $options ) )->run();
 
-		$this->assertContains('test', $output);
+		$this->assertContains( 'test', $output );
 	}
 
 	public function testOrderOfSelect1() {
@@ -37,8 +37,8 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 			'f-SelectKeys' => 'email,name',
 			't-JsonDump' => null
 		];
-		$output = (new Jsoner( $this->config, $options ))->run();
-		$this->assertRegExp('/email.*name/s', $output);
+		$output = ( new Jsoner( $this->config, $options ) )->run();
+		$this->assertRegExp( '/email.*name/s', $output );
 	}
 
 	public function testOrderOfSelect2() {
@@ -47,8 +47,8 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 			'f-SelectKeys' => 'name,email',
 			't-JsonDump' => null
 		];
-		$output = (new Jsoner( $this->config, $options ))->run();
-		$this->assertRegExp('/name.*email/s', $output);
+		$output = ( new Jsoner( $this->config, $options ) )->run();
+		$this->assertRegExp( '/name.*email/s', $output );
 	}
 }
 
