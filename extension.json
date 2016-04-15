@@ -19,33 +19,35 @@
 	"AutoloadClasses": {
 		"JsonerHooks": "Jsoner.hooks.php",
 
-		"jsoner\\Jsoner": "src/Jsoner.php",
-		"jsoner\\Resolver": "src/Resolver.php",
-		"jsoner\\Parser": "src/Parser.php",
+		"jsoner\\exceptions\\CurlException": "src/exceptions/CurlException.php",
+		"jsoner\\exceptions\\FilterException": "src/exceptions/FilterException.php",
+		"jsoner\\exceptions\\HttpUriFormatException": "src/exceptions/HttpUriFormatException.php",
+		"jsoner\\exceptions\\ParserException": "src/exceptions/ParserException.php",
+		"jsoner\\exceptions\\TransformerException": "src/exceptions/TransformerException.php",
+
+		"jsoner\\filter\\CensorKeysFilter": "src/filter/CensorKeysFilter.php",
+		"jsoner\\filter\\Filter": "src/filter/Filter.php",
+		"jsoner\\filter\\FilterHelper": "src/filter/FilterHelper.php",
+		"jsoner\\filter\\ReduceFilter": "src/filter/ReduceFilter.php",
+		"jsoner\\filter\\RemoveKeysFilter": "src/filter/RemoveKeysFilter.php",
+		"jsoner\\filter\\SelectKeysFilter": "src/filter/SelectKeysFilter.php",
+		"jsoner\\filter\\SelectSubtreeFilter": "src/filter/SelectSubtreeFilter.php",
+
+		"jsoner\\transformer\\AbstractTransformer": "src/transformer/AbstractTransformer.php",
+		"jsoner\\transformer\\InlineListTransformer": "src/transformer/InlineListTransformer.php",
+		"jsoner\\transformer\\JsonDumpTransformer": "src/transformer/JsonDumpTransformer.php",
+		"jsoner\\transformer\\SingleElementTransformer": "src/transformer/SingleElementTransformer.php",
+		"jsoner\\transformer\\StackedElementTransformer": "src/transformer/StackedElementTransformer.php",
+		"jsoner\\transformer\\Transformer": "src/transformer/Transformer.php",
+		"jsoner\\transformer\\WikitextTransformer": "src/transformer/WikitextTransformer.php",
+
 		"jsoner\\Config": "src/Config.php",
 		"jsoner\\FilterRegistry": "src/FilterRegistry.php",
-		"jsoner\\TransformerRegistry": "src/TransformerRegistry.php",
-		"jsoner\\exceptions\\CurlException": "src/exceptions/CurlException.php",
-		"jsoner\\exceptions\\HttpUriFormatException": "src/exceptions/HttpUriFormatException.php",
-		"jsoner\\exceptions\\TransformerException": "src/exceptions/TransformerException.php",
-		"jsoner\\exceptions\\ParserException": "src/exceptions/ParserException.php",
-		"jsoner\\exceptions\\FilterException": "src/exceptions/FilterException.php",
 		"jsoner\\Helper": "src/Helper.php",
-
-		"jsoner\\filter\\Filter": "src/filter/Filter.php",
-		"jsoner\\filter\\ReduceFilter": "src/filter/ReduceFilter.php",
-		"jsoner\\filter\\CensorKeysFilter": "src/filter/CensorKeysFilter.php",
-		"jsoner\\filter\\RemoveKeysFilter": "src/filter/RemoveKeysFilter.php",
-		"jsoner\\filter\\SelectSubtreeFilter": "src/filter/SelectSubtreeFilter.php",
-		"jsoner\\filter\\SelectKeysFilter": "src/filter/SelectKeysFilter.php",
-
-		"jsoner\\transformer\\Transformer": "src/transformer/Transformer.php",
-		"jsoner\\transformer\\AbstractTransformer": "src/transformer/AbstractTransformer.php",
-		"jsoner\\transformer\\JsonDumpTransformer": "src/transformer/JsonDumpTransformer.php",
-		"jsoner\\transformer\\WikitextTransformer": "src/transformer/WikitextTransformer.php",
-		"jsoner\\transformer\\SingleElementTransformer": "src/transformer/SingleElementTransformer.php",
-		"jsoner\\transformer\\InlineListTransformer": "src/transformer/InlineListTransformer.php",
-		"jsoner\\transformer\\StackedElementTransformer": "src/transformer/StackedElementTransformer.php"
+		"jsoner\\Jsoner": "src/Jsoner.php",
+		"jsoner\\Parser": "src/Parser.php",
+		"jsoner\\Resolver": "src/Resolver.php",
+		"jsoner\\TransformerRegistry": "src/TransformerRegistry.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": [
@@ -59,19 +61,6 @@
 		"Jsoner": [
 			"i18n"
 		]
-	},
-	"ResourceModules": {
-		"ext.jsoner.foo": {
-			"scripts": [
-				"modules/ext.jsoner.js",
-				"modules/ext.jsoner.foo.js"
-			],
-			"styles": [
-				"modules/ext.jsoner.foo.css"
-			],
-			"messages": [],
-			"dependencies": []
-		}
 	},
 	"ResourceFileModulePaths": {
 		"remoteExtPath": "Jsoner"
