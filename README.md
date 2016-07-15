@@ -170,7 +170,7 @@ A typical call looks like this
 
 Runs on a list and returns a list. Usage: [`f-CensorKeys=key(,key)*,replacement`](http://regexr.com/3d0vn)
 
-Example: `t-CensorKeys=email,--protected--`
+Example: `f-CensorKeys=email,--protected--`
 
     [
       {
@@ -200,7 +200,7 @@ Example: `t-CensorKeys=email,--protected--`
 
 Runs on a list and returns a list. Usage: [`f-Reduce=(\w+),(\w+)(\.\w+)*`](http://regexr.com/3d5kp)
 
-Example: `t-Reduce=mail,data.email`
+Example: `f-Reduce=mail,data.email`
 
     [
       {
@@ -244,7 +244,7 @@ Example: `t-Reduce=mail,data.email`
 
 Runs on a list and returns a list. Usage: [`f-RemoveKeys=key(,key)*`](http://regexr.com/3d0vt)
 
-Example: `t-RemoveKeys=email`
+Example: `f-RemoveKeys=email`
 
     [
       {
@@ -272,7 +272,7 @@ Example: `t-RemoveKeys=email`
 
 Runs on a list and returns a list. Usage: [`f-SelectKeys=key(,key)*`](http://regexr.com/3d100)
 
-Example: `t-SelectKeys=email`
+Example: `f-SelectKeys=email`
 
     [
       {
@@ -300,7 +300,7 @@ Example: `t-SelectKeys=email`
 
 Runs on an object and returns a list. Usage: [`f-SelectSubtree=key`](http://regexr.com/3d106)
 
-Example: `t-SelectSubtree=records`
+Example: `f-SelectSubtree=records`
 
     {
       "recordCount": 2,
