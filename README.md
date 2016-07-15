@@ -196,11 +196,11 @@ Example: `t-CensorKeys=email,--protected--`
       }
     ]
 
-### ReduceKeysFilter (`f-ReduceKeys`)
+### ReduceKeysFilter (`f-Reduce`)
 
-Runs on a list and returns a list. Usage: [`f-ReduceFilter=(\w+),(\w+)(\.\w+)*`](http://regexr.com/3d5kp)
+Runs on a list and returns a list. Usage: [`f-Reduce=(\w+),(\w+)(\.\w+)*`](http://regexr.com/3d5kp)
 
-Example: `t-ReduceKeys=mail,data.email`
+Example: `t-Reduce=mail,data.email`
 
     [
       {
