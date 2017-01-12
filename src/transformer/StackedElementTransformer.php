@@ -22,6 +22,10 @@ class StackedElementTransformer extends AbstractTransformer
 
 		$result = '';
 		foreach ( $values as $item ) {
+			if (is_array($item)) {
+				$item = join(", ", $item);
+			}
+
 			$result .= "<nowiki>$item</nowiki><br />";
 		}
 

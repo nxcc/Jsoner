@@ -5,6 +5,11 @@
 			"name": "Jonas Gröger",
 			"email": "jonas.groeger@noris.de",
 			"role": "Developer"
+		},
+		{
+			"name": "Andreas Fink",
+			"email": "andreas.fink@noris.de",
+			"role": "Developer"
 		}
 	],
 	"type": "mediawiki-extension",

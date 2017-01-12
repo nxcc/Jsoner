@@ -14,6 +14,7 @@ class FilterRegistry
 		'f-RemoveKeys' =>    "\\jsoner\\filter\\RemoveKeysFilter",
 		'f-SelectKeys' =>    "\\jsoner\\filter\\SelectKeysFilter",
 		'f-SelectSubtree' => "\\jsoner\\filter\\SelectSubtreeFilter",
+		'f-SelectRecord' =>  "\\jsoner\\filter\\SelectRecordFilter"
 	];
 
 	public function __construct( $config ) {

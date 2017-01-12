@@ -5,6 +5,7 @@ namespace jsoner;
 class SuperTest extends \PHPUnit_Framework_TestCase
 {
 	private $config;
+	private $requestCache = [];
 
 	protected function setUp() {
 		$this->config = new FakeMWConfig( [
@@ -26,7 +27,7 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ ),
 			't-JsonDump' => null
 		];
-		$output = ( new Jsoner( $this->config, $options ) )->run();
+		$output = ( new Jsoner( $this->config, $options ) )->run($this->requestCache);
 
 		$this->assertContains( 'test', $output );
 	}
@@ -37,7 +38,7 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 			'f-SelectKeys' => 'email,name',
 			't-JsonDump' => null
 		];
-		$output = ( new Jsoner( $this->config, $options ) )->run();
+		$output = ( new Jsoner( $this->config, $options ) )->run($this->requestCache);
 		$this->assertRegExp( '/email.*name/s', $output );
 	}
 
@@ -47,8 +48,22 @@ class SuperTest extends \PHPUnit_Framework_TestCase
 			'f-SelectKeys' => 'name,email',
 			't-JsonDump' => null
 		];
-		$output = ( new Jsoner( $this->config, $options ) )->run();
+		$output = ( new Jsoner( $this->config, $options ) )->run($this->requestCache);
 		$this->assertRegExp( '/name.*email/s', $output );
+	}
+
+	public function testPokeApi() {
+		$options = [
+			'url' => TestUtil::makeIntegrationTestUrl( __FUNCTION__ ),
+			'f-SelectSubtree' => 'stats',
+			'f-SelectRecord' => 'base_stat:65',
+			't-JsonDump' => null
+		];
+		$output = ( new Jsoner( $this->config, $options ) )->run($this->requestCache);
+//		$this->assertTrue(is_array($output));
+//		$this->assertEquals(2, count($output));
+		$this->assertRegExp( '/special-defense/s', $output );
+		$this->assertRegExp( '/special-attack/s', $output );
 	}
 }
 

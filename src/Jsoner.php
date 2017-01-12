@@ -27,13 +27,13 @@ class Jsoner
 	 * @param \Config $mwConfig Configuration for Jsoner in a MediaWiki data structure.
 	 * @param array $options
 	 */
-	public function __construct( $mwConfig, $options ) {
+	public function __construct( $mwConfig, $options) {
 		$this->config = new Config( [
-				"BaseUrl" => $mwConfig->get( "BaseUrl" ),
-				"User" => $mwConfig->get( "User" ),
-				"Pass" => $mwConfig->get( "Pass" ),
-				"Parser-ErrorKey" => '_error',
-				"SubSelectKeysTryOrder" => ["_title", 'id'], // TODO: Also make configurable?
+			"BaseUrl" => $mwConfig->get( "BaseUrl" ),
+			"User" => $mwConfig->get( "User" ),
+			"Pass" => $mwConfig->get( "Pass" ),
+			"Parser-ErrorKey" => '_error',
+			"SubSelectKeysTryOrder" => ["_title", 'id'], // TODO: Also make configurable?
 
 		] );
 		$this->options = $options;
@@ -43,7 +43,8 @@ class Jsoner
 	 * Here be the plumbing.
 	 * @return string
 	 */
-	public function run() {
+	public function run(&$requestCache) {
+		$url = $this->options['url'];
 
 		// Autoload the composer dependencies, since Mediawiki doesen't do it.
 		self::doAutoload();
@@ -52,9 +53,15 @@ class Jsoner
 		# $filterRegistry = new FilterRegistry($this->config);
 
 		try {
-			// Resolve
-			$resolver = new Resolver( $this->config, $this->options['url'] );
-			$json = $resolver->resolve();
+			// Resolve and cache result for the request (keyed by url)
+			$json = null;
+			if (array_key_exists($url, $requestCache)) {
+				$json = $requestCache[$url];
+			} else {
+				$resolver = new Resolver( $this->config, $this->options['url'] );
+				$json = $resolver->resolve();
+				$requestCache[$url] = $json;
+			}
 
 			// Parse
 			$parser = new Parser( $this->config );
@@ -73,8 +80,8 @@ class Jsoner
 			// Transform
 			$transformerKey = self::getTransformerKeyFromOptions( $this->options );
 			$transformer = $transformerRegistry->getTransformerByKey( $transformerKey );
-			return $transformer->transform( $json, $this->options[$transformerKey] );
 
+			return $transformer->transform( $json, $this->options[$transformerKey] );
 		} catch ( CurlException $ce ) {
 			return Helper::errorMessage( $ce->getMessage() );
 		} catch ( ParserException $pe ) {
@@ -98,7 +105,8 @@ class Jsoner
 			'f-SelectSubtree' => ['SelectSubtreeFilter', 1], // 1 Argument
 			'f-SelectKeys' => ['SelectKeysFilter', -1],      // Varargs
 			'f-RemoveKeys' => ['RemoveKeysFilter', -1],      // Varargs
-			'f-Reduce' => ['ReduceFilter', 2]                // 2 Arguments
+			'f-Reduce' => ['ReduceFilter', 2],               // 2 Arguments
+			'f-SelectRecord' => ['SelectRecordFilter', 1]    // 1 Arguments
 		];
 
 		$filters = [];

@@ -11,11 +11,19 @@ use jsoner\Jsoner;
 class JsonerHooks
 {
 	private static $configPrefix = 'jsoner';
+	private static $requestCache = [];
 
 	public static function onParserSetup( &$parser ) {
+		try {
+			Helper::assertExtensionsInstalled( ['curl', 'intl', 'fileinfo', 'mbstring'] );
+		} catch ( Exception $e ) {
+			return Helper::errorMessage( $e->getMessage() );
+		}
+
 		$parser->setFunctionHook( 'jsoner', 'JsonerHooks::run' );
 
-		return true; // Always return true, in order not to stop MW's hook processing!
+		// Always return true, in order not to stop MW's hook processing!
+		return true;
 	}
 
 	/**
@@ -30,17 +38,11 @@ class JsonerHooks
 		$parser->disableCache();
 
 		$config = self::getConfig();
-
-		try {
-			Helper::assertExtensionsInstalled( ['curl', 'intl', 'fileinfo', 'mbstring'] );
-		} catch ( Exception $e ) {
-			return Helper::errorMessage( $e->getMessage() );
-		}
-
 		$options = Helper::extractOptions( array_slice( func_get_args(), 1 ) );
 
-		$jsoner = new Jsoner( $config, $options );
-		return [$jsoner->run(), 'noparse' => false];
+		$jsoner = new Jsoner($config, $options);
+
+		return [$jsoner->run(self::$requestCache), 'noparse' => false];
 	}
 
 	private static function getConfig() {

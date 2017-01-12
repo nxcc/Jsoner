@@ -329,6 +329,32 @@ Example: `f-SelectSubtree=records`
       }
     ]
 
+### SelectRecordFilter (`f-SelectRecord`)
+
+Runs on a list and returns a list. Usage: [`f-SelectRecord=key:value`]
+
+Example: `f-SelectRecord=email:test2@example.com`
+
+    [
+	  {
+	    "name": "Bob",
+	    "email": "test1@example.com"
+	  },
+	  {
+	    "name": "Tom",
+	    "email": "test2@example.com"
+	  }
+	]
+
+    ↓
+
+    [
+      {
+		"name": "Tom",
+		"email": "test2@example.com"
+	  }
+    ]
+
 ## Available Transformers
 
 There must be always a transformer at the end of the pipeline.
