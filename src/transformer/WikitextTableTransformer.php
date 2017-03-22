@@ -69,6 +69,11 @@ class WikitextTableTransformer extends AbstractTransformer
 				}
 			}
 
+			// NNIS-5021
+			if (is_array($valueRepresentation)) {
+				$valueRepresentation = join(", ", $valueRepresentation);
+			}
+
 			$row .= "  | $valueRepresentation\n";
 		}
 		return $row;

@@ -22,6 +22,7 @@ class StackedElementTransformer extends AbstractTransformer
 
 		$result = '';
 		foreach ( $values as $item ) {
+			// NNIS-4567
 			if (is_array($item)) {
 				$item = join(", ", $item);
 			}
