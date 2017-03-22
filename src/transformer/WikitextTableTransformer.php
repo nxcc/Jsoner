@@ -41,8 +41,12 @@ class WikitextTableTransformer extends AbstractTransformer
 		$row = "|-\n";
 
 		// First element in row
-		$row .= '  | ' . reset( $item ) . "\n";
-		unset( $item[key( $item )] );
+		$firstItem = reset($item);
+
+		// NNIS-5021
+		if (is_array($firstItem)) {
+			$firstItem = join(", ", $firstItem);
+		}
 
 		// Rest of the elements in a row
 		foreach ( $item as $key => $value ) {
