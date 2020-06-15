@@ -15,6 +15,8 @@ class TransformerRegistry
 		't-WikitextTable' => '\\jsoner\\transformer\\WikitextTableTransformer',
 		't-InlineList' => '\\jsoner\\transformer\\InlineListTransformer',
 		't-StackedElement' => '\\jsoner\\transformer\\StackedElementTransformer',
+    't-mwTemplate' => '\\jsoner\\transformer\\MediaWikiTemplateTransformer',
+    't-mwTemplateAnonymous' => '\\jsoner\\transformer\\MediaWikiTemplateTransformerAnonymous',    
 	];
 
 	public function __construct( $config ) {
