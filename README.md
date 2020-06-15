@@ -483,6 +483,71 @@ Creates a nice and sortable Wikitext table out of a list of objects.
     ║ Tom    ║ tom@example.com ║
     ╚════════╩═════════════════╝
 
+### MediaWikiTemplateTransformer (`t-mwTemplate`)
+Creates Wikitext depending on the given template.
+You probably have to create a suiting template for the query.
+Uses key=value pairs.
+
+Wiki-String: {{ template |key=value  }}
+
+Usage: `t-mwTemplate=template`
+
+With `t-mwTemplate=jsoner-template`
+
+
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+        "username": "bobexample"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+        "username": "tomexample"
+      }
+    ]
+
+    ↓
+
+    ╔════════╦═════════════════╦══════════════╗
+    ║ name ▼ ║ email         ▼ ║username    ▼ ║
+    ╠════════╬═════════════════╣══════════════╣
+    ║ Bob    ║ bob@example.com ║ bobexample   ║
+    ║ Tom    ║ tom@example.com ║ tomexample   ║
+    ╚════════╩═════════════════╩══════════════╝
+
+The output is depending on the template you use.
+
+### MediaWikiTemplateTransformerAnonymous (`t-mwTemplateAnonymous`)
+Creates Wikitext depending on the given template.
+You probably have to create a suiting template for the query.
+Doesn't use key=value pairs, uses the Anonymous templating in the Mediawiki.
+Template in this use case :
+  template= {{{1}}} {{{2}}}
+
+Usage: `t-mwTemplateAnonymous=template`
+
+    [
+      {
+        "name": "Bob",
+        "email": "bob@example.com"
+        "username": "bobexample"
+      },
+      {
+        "name": "Tom",
+        "email": "tom@example.com"
+        "username": "tomexample"
+      }
+    ]
+
+    ↓
+
+    Bob bob@example.com Tom tom@example.com 
+
+The output is depending on the template you use.
+
 ## Limitations
 
 * If you set `$jsonerUser` and `$jsonerPass`, the authentification is used for every request. There
