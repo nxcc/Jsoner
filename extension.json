@@ -43,7 +43,7 @@
 		"jsoner\\transformer\\Transformer": "src/transformer/Transformer.php",
 		"jsoner\\transformer\\WikitextTransformer": "src/transformer/WikitextTransformer.php",
 		"jsoner\\transformer\\MediaWikiTemplateTransformer": "src/transformer/MediaWikiTemplateTransformer.php",
-    "jsoner\\transformer\\MediaWikiTemplateTransformerAnonymous": "src/transformer/MediaWikiTemplateTransformerAnonymous.php",
+    	"jsoner\\transformer\\MediaWikiTemplateTransformerAnonymous": "src/transformer/MediaWikiTemplateTransformerAnonymous.php",
 
 		"jsoner\\Config": "src/Config.php",
 		"jsoner\\FilterRegistry": "src/FilterRegistry.php",
