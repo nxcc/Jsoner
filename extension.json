@@ -40,6 +40,7 @@
 		"jsoner\\transformer\\JsonDumpTransformer": "src/transformer/JsonDumpTransformer.php",
 		"jsoner\\transformer\\SingleElementTransformer": "src/transformer/SingleElementTransformer.php",
 		"jsoner\\transformer\\StackedElementTransformer": "src/transformer/StackedElementTransformer.php",
+		"jsoner\\transformer\\WikitextTableTransformer": "src/transformer/WikitextTableTransformer.php",
 		"jsoner\\transformer\\Transformer": "src/transformer/Transformer.php",
 		"jsoner\\transformer\\WikitextTransformer": "src/transformer/WikitextTransformer.php",
 		"jsoner\\transformer\\MediaWikiTemplateTransformer": "src/transformer/MediaWikiTemplateTransformer.php",
