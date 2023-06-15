@@ -35,7 +35,7 @@ class JsonerHooks
 	}
 
 	public static function run( \Parser &$parser ) {
-		$parser->disableCache();
+		$parser->getOutput()->updateCacheExpiry(0);
 
 		$config = self::getConfig();
 		$options = Helper::extractOptions( array_slice( func_get_args(), 1 ) );
