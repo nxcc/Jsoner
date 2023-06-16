@@ -45,7 +45,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * @param  string $item The item to get
 	 * @return mixed  The value
 	 */
-	public function __get( $item ) {
+	public function __get( $item ):mixed {
 
 		return ( isset( $this->configSettings[$item] ) ) ? $this->configSettings[$item] : false;
 	}
@@ -57,7 +57,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * @param $value mixed The item value
 	 * @return void
 	 */
-	function __set( $key, $value ) {
+	function __set( $key, $value ):void {
 
 		$this->configSettings[$key] = $value;
 	}
@@ -73,7 +73,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * @return mixed  An array containing all configuration items, or a specific configuration
 	 *                              item, or NULL
 	 */
-	public function getItem( $item, $defaultValue = null ) {
+	public function getItem( $item, $defaultValue = null ):mixed {
 
 		if ( isset( $this->configSettings[$item] ) ) {
 
@@ -89,12 +89,12 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * @param $key string The item key
 	 * @param $value mixed The item value
 	 */
-	public function setItem( $key, $value ) {
+	public function setItem( $key, $value ):void {
 
 		$this->configSettings[$key] = $value;
 	}
 
-	public function hasItem( $key ) {
+	public function hasItem( $key ):bool {
 
 		return array_key_exists( $key, $this->configSettings );
 	}
@@ -107,7 +107,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * @param  string|array   Array of items or single item
 	 * @return array
 	 */
-	public function getItems( $items = null ) {
+	public function getItems( $items = null ):array {
 
 		if ( $items ) {
 			if ( ! is_array( $items ) ) {
@@ -128,7 +128,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	/**
 	 * @param array $items Array of items
 	 */
-	public function setItems( $items = [] ) {
+	public function setItems( $items = [] ):void {
 
 		foreach ( $items as $key => $value ) {
 			$this->configSettings[$key] = $value;
@@ -141,31 +141,31 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * Iterator Interface
 	 */
 
-	public function rewind() {
+	public function rewind():void {
 
 		$this->iteratorCount = 0;
 	}
 
-	public function current() {
+	public function current():mixed {
 
 		$vals = array_values( $this->configSettings );
 
 		return $vals[$this->iteratorCount];
 	}
 
-	public function key() {
+	public function key():mixed {
 
 		$keys = array_keys( $this->configSettings );
 
 		return $keys[$this->iteratorCount];
 	}
 
-	public function next() {
+	public function next():void {
 
 		$this->iteratorCount++;
 	}
 
-	public function valid() {
+	public function valid():bool {
 
 		$vals = array_values( $this->configSettings );
 
@@ -176,7 +176,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * Count Interface
 	 */
 
-	public function count() {
+	public function count():int {
 
 		return count( $this->configSettings );
 	}
@@ -197,7 +197,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * The return value will be casted to boolean if non-boolean was returned.
 	 * @since 5.0.0
 	 */
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ):bool {
 
 		return isset( $this->configSettings[$offset] );
 	}
@@ -211,7 +211,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * @return mixed Can return all value types.
 	 * @since 5.0.0
 	 */
-	public function offsetGet( $offset ) {
+	public function offsetGet( $offset ):mixed {
 
 		return isset( $this->configSettings[$offset] ) ? $this->configSettings[$offset] : null;
 	}
@@ -228,7 +228,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * @return void
 	 * @since 5.0.0
 	 */
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ):void {
 
 		if ( is_null( $offset ) ) {
 			$this->configSettings[] = $value;
@@ -246,7 +246,7 @@ class Config implements ArrayAccess, Iterator, Countable
 	 * @return void
 	 * @since 5.0.0
 	 */
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ):void {
 
 		unset( $this->configSettings[$offset] );
 	}

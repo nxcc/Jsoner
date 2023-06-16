@@ -4,7 +4,7 @@ namespace jsoner;
 
 use jsoner\exceptions\CurlException;
 use jsoner\exceptions\HttpUriFormatException;
-use League\Uri\Schemes\Http;
+use League\Uri\Http;
 
 class Resolver
 {
