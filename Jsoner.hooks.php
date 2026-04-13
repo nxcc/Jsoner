@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
 use jsoner\Helper;
 use jsoner\Jsoner;
 
@@ -37,7 +38,7 @@ class JsonerHooks
 	public static function run( \Parser &$parser ) {
 		$parser->getOutput()->updateCacheExpiry(0);
 
-		$config = self::getConfig();
+		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig('jsoner');
 		$options = Helper::extractOptions( array_slice( func_get_args(), 1 ) );
 
 		$jsoner = new Jsoner($config, $options);
